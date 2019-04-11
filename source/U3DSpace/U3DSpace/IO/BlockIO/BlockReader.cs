@@ -3,6 +3,10 @@ using System.Text;
 
 namespace U3DSpace.IO.BlockIO
 {
+    /// <summary>
+    /// Represents byte reader for the block.
+    /// Supports only uncompressed values.
+    /// </summary>
     public class BlockReader
     {
         #region Fields

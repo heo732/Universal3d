@@ -29,7 +29,7 @@ namespace U3DSpace.IO.BlockIO
 
         public Block GetBlock(BlockType blockType)
         {
-            AlignTo4Byte();
+            _block.AlignTo4Bytes();
             _block.Type = blockType;
             return new Block(_block);
         }
@@ -171,38 +171,6 @@ namespace U3DSpace.IO.BlockIO
         public void WriteU8(byte value)
         {
             _block.Data.Add(value);
-        }
-
-        private void AlignData()
-        {
-            byte aligningSize = (byte)(4 - (_block.Data.Count % 4));
-            _block.DataAligning = new List<byte>();
-            if (aligningSize != 4)
-            {
-                for (byte i = 0; i < aligningSize; i++)
-                {
-                    _block.DataAligning.Add(0);
-                }
-            }
-        }
-
-        private void AlignMetaData()
-        {
-            byte aligningSize = (byte)(4 - (_block.MetaData.Count % 4));
-            _block.MetaDataAligning = new List<byte>();
-            if (aligningSize != 4)
-            {
-                for (byte i = 0; i < aligningSize; i++)
-                {
-                    _block.MetaDataAligning.Add(0);
-                }
-            }
-        }
-
-        private void AlignTo4Byte()
-        {
-            AlignData();
-            AlignMetaData();
         }
 
         #endregion Methods
