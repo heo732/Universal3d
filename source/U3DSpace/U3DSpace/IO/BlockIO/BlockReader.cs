@@ -124,14 +124,32 @@ namespace U3DSpace.IO.BlockIO
 
         public bool TryToReadString(Encoding encoding, out string value)
         {
-            if (DataSise < 2)
+            if (TryToReadU16(out ushort length))
             {
-                value = string.Empty;
-                return false;
+                if (length > 0)
+                {
+                    if (DataSise >= length)
+                    {
+                        value = encoding.GetString(_block.Data.GetRange(0, length).ToArray());
+                        _block.Data.RemoveRange(0, length);
+                        return true;
+                    }
+                    else
+                    {
+                        value = string.Empty;
+                        return false;
+                    }
+                }
+                else
+                {
+                    value = string.Empty;
+                    return true;
+                }
             }
             else
             {
-                throw new NotImplementedException();
+                value = string.Empty;
+                return false;
             }
         }
 
