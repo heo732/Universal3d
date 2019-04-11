@@ -27,17 +27,11 @@ namespace U3DSpace.IO.BlockIO
 
         #region Methods
 
-        public Block GetBlock(uint blockType)
+        public Block GetBlock(BlockType blockType)
         {
             AlignTo4Byte();
-            return new Block()
-            {
-                BlockType = blockType,
-                Data = new List<byte>(_block.Data),
-                MetaData = new List<byte>(_block.MetaData),
-                DataAligning = new List<byte>(_block.DataAligning),
-                MetaDataAligning = new List<byte>(_block.MetaDataAligning)
-            };
+            _block.Type = blockType;
+            return new Block(_block);
         }
 
         public void WriteArray(IEnumerable<float> array)
@@ -50,7 +44,7 @@ namespace U3DSpace.IO.BlockIO
 
         public void WriteBlock(Block block)
         {
-            WriteU32(block.BlockType);
+            WriteU32((uint)block.Type);
             WriteU32((uint)block.Data.Count);
             WriteU32((uint)block.MetaData.Count);
             WriteData(block.Data);
