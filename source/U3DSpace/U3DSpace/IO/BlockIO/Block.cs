@@ -4,7 +4,6 @@ namespace U3DSpace.IO.BlockIO
 {
     /// <summary>
     /// Represents data block in bytes.
-    /// Data and metadata aligning mean aligning to 4 bytes.
     /// </summary>
     public class Block
     {
@@ -52,9 +51,21 @@ namespace U3DSpace.IO.BlockIO
         #region Properties
 
         public List<byte> Data { get; internal set; }
+
+        /// <summary>
+        /// Aligning to 4 bytes.
+        /// It consists only from zeros.
+        /// </summary>
         public List<byte> DataAligning { get; internal set; }
+
         public List<byte> MetaData { get; internal set; }
+
+        /// <summary>
+        /// Aligning to 4 bytes.
+        /// It consists only from zeros.
+        /// </summary>
         public List<byte> MetaDataAligning { get; internal set; }
+
         public BlockType Type { get; internal set; }
 
         #endregion Properties
