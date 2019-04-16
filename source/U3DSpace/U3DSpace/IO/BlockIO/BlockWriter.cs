@@ -147,6 +147,18 @@ namespace U3DSpace.IO.BlockIO
             }
         }
 
+        public void WriteMetaPadding()
+        {
+            byte paddingSize = (byte)(4 - (_block.MetaData.Count % 4));
+            if (paddingSize != 4)
+            {
+                for (byte i = 0; i < paddingSize; i++)
+                {
+                    WriteMetaU8(0);
+                }
+            }
+        }
+
         public void WriteString(string s, Encoding encoding)
         {
             WriteU16((ushort)s.Length);
