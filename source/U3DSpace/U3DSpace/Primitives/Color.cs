@@ -20,6 +20,20 @@ namespace U3DSpace.Primitives
             B = blue;
         }
 
+        public Color(float value)
+        {
+            R = value;
+            G = value;
+            B = value;
+        }
+
+        public Color(Color color)
+        {
+            R = color.R;
+            G = color.G;
+            B = color.B;
+        }
+
         #endregion Constructors
 
         #region Properties

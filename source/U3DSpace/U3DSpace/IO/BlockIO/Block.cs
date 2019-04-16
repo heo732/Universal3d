@@ -2,9 +2,7 @@
 
 namespace U3DSpace.IO.BlockIO
 {
-    /// <summary>
-    /// Represents data block in bytes.
-    /// </summary>
+    /// <summary>Represents data block in bytes</summary>
     public class Block
     {
         #region Constructors

@@ -22,11 +22,11 @@
 
         #region Properties
 
+        /// <summary>Use for identify this Shader</summary>
+        public string Name { get; internal set; }
+
         /// <summary>Name of the Material from U3DDocument</summary>
         public string Material { get; internal set; }
-
-        /// <summary>Use for identify this shader</summary>
-        public string Name { get; internal set; }
 
         /// <summary>Name of the Texture from U3DDocument</summary>
         public string Texture { get; internal set; }

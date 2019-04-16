@@ -21,10 +21,10 @@ namespace U3DSpace.Primitives
             float reflectivity, float opacity)
         {
             Name = name;
-            Ambient = ambient;
-            Diffuse = diffuse;
-            Specular = specular;
-            Emissive = emissive;
+            Ambient = new Color(ambient);
+            Diffuse = new Color(diffuse);
+            Specular = new Color(specular);
+            Emissive = new Color(emissive);
             Reflectivity = reflectivity;
             Opacity = opacity;
         }
@@ -41,7 +41,7 @@ namespace U3DSpace.Primitives
 
         public Color Specular { get; internal set; }
 
-        /// <summary>Use for identify this material</summary>
+        /// <summary>Use for identify this Material</summary>
         public string Name { get; internal set; }
 
         public float Opacity { get; internal set; }
