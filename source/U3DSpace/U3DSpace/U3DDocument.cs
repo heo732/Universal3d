@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
@@ -31,5 +32,34 @@ namespace U3DSpace
         public Dictionary<string, Texture> Textures { get; internal set; }
 
         #endregion Properties
+
+        #region Methods
+
+        public bool TryToAddNode(Node node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryToAddMesh(Mesh mesh)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryToAddMaterial(Material material)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryToAddShader(Shader shader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryToAddTexture(Texture texture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Methods
     }
 }
