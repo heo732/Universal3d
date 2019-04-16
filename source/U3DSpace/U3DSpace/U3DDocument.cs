@@ -9,20 +9,20 @@ namespace U3DSpace
 
         public U3DDocument()
         {
-            Materials = new List<Material>();
-            Meshes = new List<Mesh>();
-            Nodes = new List<Node>();
-            Textures = new List<Texture>();
+            Materials = new Dictionary<string, Material>();
+            Meshes = new Dictionary<string, Mesh>();
+            Nodes = new Dictionary<string, Node>();
+            Textures = new Dictionary<string, Texture>();
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public List<Material> Materials { get; internal set; }
-        public List<Mesh> Meshes { get; internal set; }
-        public List<Node> Nodes { get; internal set; }
-        public List<Texture> Textures { get; internal set; }
+        public Dictionary<string, Material> Materials { get; internal set; }
+        public Dictionary<string, Mesh> Meshes { get; internal set; }
+        public Dictionary<string, Node> Nodes { get; internal set; }
+        public Dictionary<string, Texture> Textures { get; internal set; }
 
         #endregion Properties
     }
