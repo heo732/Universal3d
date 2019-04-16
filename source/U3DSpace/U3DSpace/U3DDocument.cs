@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using U3DSpace.Primitives;
+using U3DSpace.Primitives.MaterialPrimitives;
+using U3DSpace.Primitives.MeshPrimitives;
+using U3DSpace.Primitives.NodePrimitives;
+using U3DSpace.Primitives.TexturePrimitives;
 
 namespace U3DSpace
 {

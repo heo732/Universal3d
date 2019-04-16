@@ -1,4 +1,4 @@
-﻿namespace U3DSpace.Primitives
+﻿namespace U3DSpace.Primitives.NodePrimitives
 {
     public class Node
     {

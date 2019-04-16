@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace U3DSpace.Primitives
+namespace U3DSpace.Primitives.MeshPrimitives
 {
     public class Mesh
     {
