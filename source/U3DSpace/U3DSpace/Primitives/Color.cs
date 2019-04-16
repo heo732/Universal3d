@@ -1,4 +1,6 @@
-﻿namespace U3DSpace.Primitives
+﻿using System;
+
+namespace U3DSpace.Primitives
 {
     public class Color
     {
@@ -30,13 +32,23 @@
 
         #region Methods
 
+        public static bool operator !=(Color a, Color b)
+        {
+            return !(a == b);
+        }
+
+        public static bool operator ==(Color a, Color b)
+        {
+            return a.Equals(b);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is Color color)
             {
-                if (R == color.R &&
-                    G == color.G &&
-                    B == color.B)
+                if ((Math.Abs(R - color.R) < 0.00005) &&
+                    (Math.Abs(G - color.G) < 0.00005) &&
+                    (Math.Abs(B - color.B) < 0.00005))
                 {
                     return true;
                 }

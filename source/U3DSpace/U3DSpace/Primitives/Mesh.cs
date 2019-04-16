@@ -2,5 +2,6 @@
 {
     public class Mesh
     {
+        public string Shader { get; internal set; }
     }
 }

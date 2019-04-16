@@ -9,6 +9,7 @@ namespace U3DSpace
 
         public U3DDocument()
         {
+            Shaders = new Dictionary<string, Shader>();
             Materials = new Dictionary<string, Material>();
             Meshes = new Dictionary<string, Mesh>();
             Nodes = new Dictionary<string, Node>();
@@ -22,6 +23,7 @@ namespace U3DSpace
         public Dictionary<string, Material> Materials { get; internal set; }
         public Dictionary<string, Mesh> Meshes { get; internal set; }
         public Dictionary<string, Node> Nodes { get; internal set; }
+        public Dictionary<string, Shader> Shaders { get; internal set; }
         public Dictionary<string, Texture> Textures { get; internal set; }
 
         #endregion Properties
