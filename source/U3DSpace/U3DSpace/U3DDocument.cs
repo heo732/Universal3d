@@ -34,7 +34,7 @@ namespace U3DSpace
 
         #region Methods
 
-        public bool TryToAddNode(Node node)
+        public bool TryAddNode(Node node)
         {
             if ((node == null) || string.IsNullOrEmpty(node.Name) || Nodes.ContainsKey(node.Name))
             {
@@ -52,7 +52,7 @@ namespace U3DSpace
             return true;
         }
 
-        public bool TryToAddMesh(Mesh mesh)
+        public bool TryAddMesh(Mesh mesh)
         {
             if ((mesh == null) || string.IsNullOrEmpty(mesh.Name) || Meshes.ContainsKey(mesh.Name))
             {
@@ -70,7 +70,7 @@ namespace U3DSpace
             return true;
         }
 
-        public bool TryToAddMaterial(Material material)
+        public bool TryAddMaterial(Material material)
         {
             if ((material == null) || string.IsNullOrEmpty(material.Name) || Materials.ContainsKey(material.Name))
             {
@@ -80,7 +80,7 @@ namespace U3DSpace
             return true;
         }
 
-        public bool TryToAddShader(Shader shader)
+        public bool TryAddShader(Shader shader)
         {
             if ((shader == null) || string.IsNullOrEmpty(shader.Name) || Shaders.ContainsKey(shader.Name))
             {
@@ -98,7 +98,7 @@ namespace U3DSpace
             return true;
         }
 
-        public bool TryToAddTexture(Texture texture)
+        public bool TryAddTexture(Texture texture)
         {
             if ((texture == null) || string.IsNullOrEmpty(texture.Name) || Textures.ContainsKey(texture.Name))
             {
