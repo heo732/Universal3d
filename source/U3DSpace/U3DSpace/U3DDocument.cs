@@ -116,6 +116,36 @@ namespace U3DSpace
             return true;
         }
 
+        public byte[] Save()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SaveToFile(string filePath)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public byte[] SavePDF()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SaveToFilePDF(string filePath)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Read(byte[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ReadFromFile(string filePath)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion Methods
     }
 }
