@@ -35,5 +35,31 @@ namespace U3DSpace.Primitives.MeshPrimitives
         public List<Triangle> Triangles { get; internal set; }
 
         #endregion Properties
+
+        #region Methods
+
+        public bool IsTrianglesCorrect()
+        {
+            bool result = true;
+            foreach (var triangle in Triangles)
+            {
+                if (triangle.A.Position >= Positions.Count ||
+                    triangle.B.Position >= Positions.Count ||
+                    triangle.C.Position >= Positions.Count ||
+                    triangle.A.Normal >= Normals.Count ||
+                    triangle.B.Normal >= Normals.Count ||
+                    triangle.C.Normal >= Normals.Count ||
+                    triangle.A.TextureCoordinate >= TextureCoordinates.Count ||
+                    triangle.B.TextureCoordinate >= TextureCoordinates.Count ||
+                    triangle.C.TextureCoordinate >= TextureCoordinates.Count)
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        #endregion Methods
     }
 }

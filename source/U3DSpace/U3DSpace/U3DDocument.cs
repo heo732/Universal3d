@@ -36,52 +36,84 @@ namespace U3DSpace
 
         public bool TryToAddNode(Node node)
         {
-            if (!Nodes.ContainsKey(node.Name))
+            if ((node == null) || string.IsNullOrEmpty(node.Name) || Nodes.ContainsKey(node.Name))
             {
-                Nodes.Add(node.Name, node);
-                return true;
+                return false;
             }
-            return false;
+            if (!string.IsNullOrEmpty(node.Mesh) && !Meshes.ContainsKey(node.Mesh))
+            {
+                return false;
+            }
+            if (!string.IsNullOrEmpty(node.Parent) && !Nodes.ContainsKey(node.Parent))
+            {
+                return false;
+            }
+            Nodes.Add(node.Name, node);
+            return true;
         }
 
         public bool TryToAddMesh(Mesh mesh)
         {
-            if (!Meshes.ContainsKey(mesh.Name))
+            if ((mesh == null) || string.IsNullOrEmpty(mesh.Name) || Meshes.ContainsKey(mesh.Name))
             {
-                Meshes.Add(mesh.Name, mesh);
-                return true;
+                return false;
             }
-            return false;
+            if (string.IsNullOrEmpty(mesh.Shader) || !Shaders.ContainsKey(mesh.Shader))
+            {
+                return false;
+            }
+            if (!mesh.IsTrianglesCorrect())
+            {
+                return false;
+            }
+            Meshes.Add(mesh.Name, mesh);
+            return true;
         }
 
         public bool TryToAddMaterial(Material material)
         {
-            if (!Materials.ContainsKey(material.Name))
+            if ((material == null) || string.IsNullOrEmpty(material.Name) || Materials.ContainsKey(material.Name))
             {
-                Materials.Add(material.Name, material);
-                return true;
+                return false;
             }
-            return false;
+            Materials.Add(material.Name, material);
+            return true;
         }
 
         public bool TryToAddShader(Shader shader)
         {
-            if (!Shaders.ContainsKey(shader.Name))
+            if ((shader == null) || string.IsNullOrEmpty(shader.Name) || Shaders.ContainsKey(shader.Name))
             {
-                Shaders.Add(shader.Name, shader);
-                return true;
+                return false;
             }
-            return false;
+            if (string.IsNullOrEmpty(shader.Material) || !Materials.ContainsKey(shader.Material))
+            {
+                return false;
+            }
+            if (!string.IsNullOrEmpty(shader.Texture) && !Textures.ContainsKey(shader.Texture))
+            {
+                return false;
+            }
+            Shaders.Add(shader.Name, shader);
+            return true;
         }
 
         public bool TryToAddTexture(Texture texture)
         {
-            if (!Textures.ContainsKey(texture.Name))
+            if ((texture == null) || string.IsNullOrEmpty(texture.Name) || Textures.ContainsKey(texture.Name))
             {
-                Textures.Add(texture.Name, texture);
-                return true;
+                return false;
             }
-            return false;
+            if (texture.Image.Length == 0)
+            {
+                return false;
+            }
+            if (texture.ImageFormat == ImageFormat.Invalid)
+            {
+                return false;
+            }
+            Textures.Add(texture.Name, texture);
+            return true;
         }
 
         #endregion Methods

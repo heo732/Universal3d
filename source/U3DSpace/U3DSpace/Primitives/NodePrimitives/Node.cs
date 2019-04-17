@@ -1,5 +1,8 @@
 ﻿namespace U3DSpace.Primitives.NodePrimitives
 {
+    /// <summary>
+    /// Represents a model node if it has mesh and group node otherwise
+    /// </summary>
     public class Node
     {
         #region Constructors
@@ -9,7 +12,7 @@
             Name = string.Empty;
             Mesh = string.Empty;
             Parent = string.Empty;
-            Transformation = new Matrix4();
+            Transformation = Matrix4.GetIdentityMatrix();
         }
 
         public Node(string name, string mesh, string parent, Matrix4 transformation)
