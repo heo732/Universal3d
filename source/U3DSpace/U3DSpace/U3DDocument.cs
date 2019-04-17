@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
@@ -37,27 +36,52 @@ namespace U3DSpace
 
         public bool TryToAddNode(Node node)
         {
-            throw new NotImplementedException();
+            if (!Nodes.ContainsKey(node.Name))
+            {
+                Nodes.Add(node.Name, node);
+                return true;
+            }
+            return false;
         }
 
         public bool TryToAddMesh(Mesh mesh)
         {
-            throw new NotImplementedException();
+            if (!Meshes.ContainsKey(mesh.Name))
+            {
+                Meshes.Add(mesh.Name, mesh);
+                return true;
+            }
+            return false;
         }
 
         public bool TryToAddMaterial(Material material)
         {
-            throw new NotImplementedException();
+            if (!Materials.ContainsKey(material.Name))
+            {
+                Materials.Add(material.Name, material);
+                return true;
+            }
+            return false;
         }
 
         public bool TryToAddShader(Shader shader)
         {
-            throw new NotImplementedException();
+            if (!Shaders.ContainsKey(shader.Name))
+            {
+                Shaders.Add(shader.Name, shader);
+                return true;
+            }
+            return false;
         }
 
         public bool TryToAddTexture(Texture texture)
         {
-            throw new NotImplementedException();
+            if (!Textures.ContainsKey(texture.Name))
+            {
+                Textures.Add(texture.Name, texture);
+                return true;
+            }
+            return false;
         }
 
         #endregion Methods
