@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using U3DSpace.IO;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
@@ -29,6 +32,7 @@ namespace U3DSpace
         public Dictionary<string, Node> Nodes { get; internal set; }
         public Dictionary<string, Shader> Shaders { get; internal set; }
         public Dictionary<string, Texture> Textures { get; internal set; }
+        public Encoding TextEncoding { get; internal set; }
 
         #endregion Properties
 
@@ -116,24 +120,30 @@ namespace U3DSpace
             return true;
         }
 
-        public byte[] Save()
+        public void Save(Stream stream)
         {
-            throw new System.NotImplementedException();
+            DocumentWriter.Save(stream, this);
         }
 
         public void SaveToFile(string filePath)
         {
-            throw new System.NotImplementedException();
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                Save(stream);
+            }
         }
 
-        public byte[] SavePDF()
+        public void SavePDF(Stream stream)
         {
-            throw new System.NotImplementedException();
+            DocumentWriter.SavePDF(stream, this);
         }
 
         public void SaveToFilePDF(string filePath)
         {
-            throw new System.NotImplementedException();
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                Save(stream);
+            }
         }
 
         public void Read(byte[] data)
