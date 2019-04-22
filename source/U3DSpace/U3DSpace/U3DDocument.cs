@@ -21,6 +21,7 @@ namespace U3DSpace
             Meshes = new Dictionary<string, Mesh>();
             Nodes = new Dictionary<string, Node>();
             Textures = new Dictionary<string, Texture>();
+            TextEncoding = Encoding.UTF8;
         }
 
         #endregion Constructors
@@ -32,7 +33,7 @@ namespace U3DSpace
         public Dictionary<string, Node> Nodes { get; internal set; }
         public Dictionary<string, Shader> Shaders { get; internal set; }
         public Dictionary<string, Texture> Textures { get; internal set; }
-        public Encoding TextEncoding { get; internal set; }
+        public Encoding TextEncoding { get; }
 
         #endregion Properties
 

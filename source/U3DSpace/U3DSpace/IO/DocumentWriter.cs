@@ -43,7 +43,7 @@ namespace U3DSpace.IO
         {
             using (var writer = new BinaryWriter(stream, doc.TextEncoding, true))
             {
-                writer.Write(GetHeaderBlock().ToArray());
+                writer.Write(GetHeaderBlock(doc).ToArray());
             }
         }
 
@@ -51,9 +51,20 @@ namespace U3DSpace.IO
 
         #region PrivateMethods
 
-        private static Block GetHeaderBlock()
+        private static Block GetHeaderBlock(U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            var w = new BlockWriter();
+            w.WriteI32(0x00000000); // version
+            w.WriteU32(0x00000004); // profile identifier (0x00000004 - No compression mode)
+            w.WriteU32(36); // declaration size
+            w.WriteU64(732); // file size
+            w.WriteU32(106); // character encoding: 106 = UTF-8
+            //Meta data.
+            w.WriteMetaU32(1); // Key/Value Pair Count
+            w.WriteMetaU32(0); // Key/Value Pair Attributes; 0x00000000 - indicates the Value is formatted as a String
+            w.WriteMetaString("{Created_by", doc.TextEncoding); // Key String
+            w.WriteMetaString("GLTFtoU3D_converter}", doc.TextEncoding); // Value String
+            return w.GetBlock(BlockType.Header);
         }
 
         #endregion PrivateMethods
