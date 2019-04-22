@@ -44,6 +44,11 @@ namespace U3DSpace.IO
             using (var writer = new BinaryWriter(stream, doc.TextEncoding, true))
             {
                 writer.Write(GetHeaderBlock(doc).ToArray());
+                WriteNodes(writer, doc);
+                WriteMeshes(writer, doc);
+                WriteShaders(writer, doc);
+                WriteMaterials(writer, doc);
+                WriteTextures(writer, doc);
             }
         }
 
@@ -65,6 +70,31 @@ namespace U3DSpace.IO
             w.WriteMetaString("{Created_by", doc.TextEncoding); // Key String
             w.WriteMetaString("GLTFtoU3D_converter}", doc.TextEncoding); // Value String
             return w.GetBlock(BlockType.Header);
+        }
+
+        private static void WriteNodes(BinaryWriter writer, U3DDocument doc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private static void WriteMeshes(BinaryWriter writer, U3DDocument doc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private static void WriteShaders(BinaryWriter writer, U3DDocument doc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private static void WriteMaterials(BinaryWriter writer, U3DDocument doc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private static void WriteTextures(BinaryWriter writer, U3DDocument doc)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion PrivateMethods
