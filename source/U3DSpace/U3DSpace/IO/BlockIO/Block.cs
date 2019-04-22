@@ -76,6 +76,15 @@ namespace U3DSpace.IO.BlockIO
             AlignMetaData();
         }
 
+        public byte[] ToArray()
+        {
+            var result = new List<byte>(Data);
+            result.AddRange(DataAligning);
+            result.AddRange(MetaData);
+            result.AddRange(MetaDataAligning);
+            return result.ToArray();
+        }
+
         private void AlignData()
         {
             byte aligningSize = (byte)(4 - (Data.Count % 4));

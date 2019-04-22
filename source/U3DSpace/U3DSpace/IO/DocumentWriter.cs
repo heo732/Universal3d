@@ -41,9 +41,9 @@ namespace U3DSpace.IO
 
         public static void Save(Stream stream, U3DDocument doc)
         {
-            using (var writer = new StreamWriter(stream, doc.TextEncoding, 1024, true))
+            using (var writer = new BinaryWriter(stream, doc.TextEncoding, true))
             {
-                throw new System.NotImplementedException();
+                writer.Write(GetHeaderBlock().ToArray());
             }
         }
 
