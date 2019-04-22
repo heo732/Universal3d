@@ -120,10 +120,7 @@ namespace U3DSpace
             return true;
         }
 
-        public void Save(Stream stream)
-        {
-            DocumentWriter.Save(stream, this);
-        }
+        public void Save(Stream stream) => DocumentWriter.Save(stream, this);
 
         public void SaveToFile(string filePath)
         {
@@ -133,10 +130,7 @@ namespace U3DSpace
             }
         }
 
-        public void SavePDF(Stream stream)
-        {
-            DocumentWriter.SavePDF(stream, this);
-        }
+        public void SavePDF(Stream stream) => DocumentWriter.SavePDF(stream, this);
 
         public void SaveToFilePDF(string filePath)
         {
@@ -146,14 +140,14 @@ namespace U3DSpace
             }
         }
 
-        public void Read(byte[] data)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Read(Stream stream) => DocumentReader.Read(stream, this);
 
         public void ReadFromFile(string filePath)
         {
-            throw new System.NotImplementedException();
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                Read(stream);
+            }
         }
 
         #endregion Methods

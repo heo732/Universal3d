@@ -2,12 +2,13 @@
 using Spire.Pdf.Annotations;
 using Spire.Pdf.Graphics;
 using System.IO;
+using U3DSpace.IO.BlockIO;
 
 namespace U3DSpace.IO
 {
     public static class DocumentWriter
     {
-        #region Methods
+        #region PublicMethods
 
         public static void SavePDF(Stream pdfDocStream, U3DDocument u3dDoc)
         {
@@ -46,6 +47,15 @@ namespace U3DSpace.IO
             }
         }
 
-        #endregion Methods
+        #endregion PublicMethods
+
+        #region PrivateMethods
+
+        private static Block GetHeaderBlock()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion PrivateMethods
     }
 }
