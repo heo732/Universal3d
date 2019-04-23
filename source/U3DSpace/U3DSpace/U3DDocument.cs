@@ -137,7 +137,7 @@ namespace U3DSpace
         {
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                Save(stream);
+                SavePDF(stream);
             }
         }
 

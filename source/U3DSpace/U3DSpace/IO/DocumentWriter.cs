@@ -59,22 +59,6 @@ namespace U3DSpace.IO
 
         #region PrivateMethods
 
-        private static Block GetHeaderBlock(U3DDocument doc)
-        {
-            var w = new BlockWriter();
-            w.WriteI32(0x00000000); // version
-            w.WriteU32(0x00000004); // profile identifier (0x00000004 - No compression mode)
-            w.WriteU32(36); // declaration size
-            w.WriteU64(732); // file size
-            w.WriteU32(106); // character encoding: 106 = UTF-8
-            //Meta data.
-            w.WriteMetaU32(1); // Key/Value Pair Count
-            w.WriteMetaU32(0); // Key/Value Pair Attributes; 0x00000000 - indicates the Value is formatted as a String
-            w.WriteMetaString("{Created_by", doc.TextEncoding); // Key String
-            w.WriteMetaString("GLTFtoU3D_converter}", doc.TextEncoding); // Value String
-            return w.GetBlock(BlockType.Header);
-        }
-
         private static void WriteNodes(BinaryWriter writer, U3DDocument doc)
         {
             foreach (Node node in doc.Nodes.Values)
@@ -120,6 +104,22 @@ namespace U3DSpace.IO
             throw new System.NotImplementedException();
         }
 
+        private static Block GetHeaderBlock(U3DDocument doc)
+        {
+            var w = new BlockWriter();
+            w.WriteI32(0x00000000); // version
+            w.WriteU32(0x00000004); // profile identifier (0x00000004 - No compression mode)
+            w.WriteU32(36); // declaration size
+            w.WriteU64(732); // file size
+            w.WriteU32(106); // character encoding: 106 = UTF-8
+            //Meta data.
+            w.WriteMetaU32(1); // Key/Value Pair Count
+            w.WriteMetaU32(0); // Key/Value Pair Attributes; 0x00000000 - indicates the Value is formatted as a String
+            w.WriteMetaString("{Created_by", doc.TextEncoding); // Key String
+            w.WriteMetaString("GLTFtoU3D_converter}", doc.TextEncoding); // Value String
+            return w.GetBlock(BlockType.Header);
+        }
+
         private static Block GetGroupNodeBlock(Node node)
         {
             var w = new BlockWriter();
@@ -140,6 +140,44 @@ namespace U3DSpace.IO
             w.WritePadding();
             w.WriteU32(1); // modifier count in this chain
             w.WriteBlock(GetGroupNodeBlock(node));
+            return w.GetBlock(BlockType.ModifierChain);
+        }
+
+        private static Block GetModelNodeBlock(Node node)
+        {
+            var w = new BlockWriter();
+            w.WriteString(node.Name); // model node name
+            w.WriteU32(1); // parent node count
+            w.WriteString(node.Parent); // parent node name
+            w.WriteArray(node.Transformation.ToArray()); // transformation
+            w.WriteString(node.Mesh); // model resource name
+            w.WriteU32(3); // visibility 3 = front and back
+            return w.GetBlock(BlockType.ModelNode);
+        }
+
+        private static Block GetShadingModifierBlock(string nodeName, string shaderName)
+        {
+            var w = new BlockWriter();
+            w.WriteString(nodeName); // shading modifier name
+            w.WriteU32(1); // chain index
+            w.WriteU32(1); // shading attributes
+            w.WriteU32(1); // shading list count
+            w.WriteU32(1); // shader count
+            w.WriteString(shaderName); // shader name
+            return w.GetBlock(BlockType.ShadingModifier);
+        }
+
+        private static Block GetNodeModifierChain(Node node, U3DDocument doc)
+        {
+            var w = new BlockWriter();
+            w.WriteString(node.Name); // modifier chain name
+            w.WriteU32(0); // modifier chain type: 0 = node modifier chain
+            w.WriteU32(0); // modifier chain attributes: 0 = neither bounding sphere nor
+            // Bounding box info present.
+            w.WritePadding();
+            w.WriteU32(2); // modifier count in this chain
+            w.WriteBlock(GetModelNodeBlock(node));
+            w.WriteBlock(GetShadingModifierBlock(node.Name, doc.Meshes[node.Mesh].Shader));
             return w.GetBlock(BlockType.ModifierChain);
         }
 
@@ -262,45 +300,6 @@ namespace U3DSpace.IO
                     w.WriteU32(textureFaces[i].C); // texture coord index, face corner C
             }
             return w.GetBlock(0xFFFFFF3B);
-        }
-
-        private static Block GetModelNodeBlock(string nodeName, string parentNodeName)
-        {
-            var w = new BlockWriter();
-            w.WriteString(nodeName); // model node name
-            w.WriteU32(1); // parent node count
-            w.WriteString(parentNodeName ?? ""); // parent node name
-            var identityMatrix = new float[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
-            w.WriteArray(identityMatrix); // transformation
-            w.WriteString(nodeName); // model resource name
-            w.WriteU32(3); // visibility 3 = front and back
-            return w.GetBlock(0xFFFFFF22);
-        }
-
-        private static Block GetShadingModifierBlock(string shadingModName, string shaderName)
-        {
-            var w = new BlockWriter();
-            w.WriteString(shadingModName); // shading modifier name
-            w.WriteU32(1); // chain index
-            w.WriteU32(1); // shading attributes
-            w.WriteU32(1); // shading list count
-            w.WriteU32(1); // shader count
-            w.WriteString(shaderName); // shader name
-            return w.GetBlock(0xFFFFFF45);
-        }
-
-        private static Block GetNodeModifierChain(string nodeName, string parentNodeName, string shadingName, string shaderName)
-        {
-            var w = new BlockWriter();
-            w.WriteString(nodeName); // modifier chain name
-            w.WriteU32(0); // modifier chain type: 0 = node modifier chain
-            w.WriteU32(0); // modifier chain attributes: 0 = neither bounding sphere nor
-            // Bounding box info present.
-            w.WritePadding();
-            w.WriteU32(2); // modifier count in this chain
-            w.WriteBlock(GetModelNodeBlock(nodeName, parentNodeName));
-            w.WriteBlock(GetShadingModifierBlock(shadingName, shaderName));
-            return w.GetBlock(0xFFFFFF14);
         }
 
         #endregion PrivateMethods
