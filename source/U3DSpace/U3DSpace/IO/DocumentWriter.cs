@@ -3,6 +3,7 @@ using Spire.Pdf.Annotations;
 using Spire.Pdf.Graphics;
 using System.IO;
 using U3DSpace.IO.BlockIO;
+using U3DSpace.Primitives;
 using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.NodePrimitives;
 
@@ -93,7 +94,10 @@ namespace U3DSpace.IO
 
         private static void WriteShaders(BinaryWriter writer, U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            foreach (Shader shader in doc.Shaders.Values)
+            {
+                writer.Write(GetLitTextureShaderBlock(shader).ToArray());
+            }
         }
 
         private static void WriteMaterials(BinaryWriter writer, U3DDocument doc)
@@ -293,6 +297,34 @@ namespace U3DSpace.IO
                 }
             }
             return w.GetBlock(BlockType.MeshContinuation);
+        }
+
+        private static Block GetLitTextureShaderBlock(Shader shader)
+        {
+            var w = new BlockWriter();
+            w.WriteString(shader.Name); // shader name
+            w.WriteU32(1); // Lit texture shader attributes: 1 = Lights enabled
+            w.WriteF32(0f); // Alpha Test Reference
+            w.WriteU32(0x00000617); // Alpha Test Function: ALWAYS
+            w.WriteU32(0x00000605); // Color Blend Function: FB_MULTIPLY
+            w.WriteU32(1); // Render pass enabled flags
+            w.WriteU32(string.IsNullOrEmpty(shader.Texture) ? 0u : 1u); // Shader channels (active texture count)
+            w.WriteU32(0); // Alpha texture channels
+            w.WriteString(shader.Material); // Material name
+            // Texture information.
+            if (!string.IsNullOrEmpty(shader.Texture))
+            {
+                w.WriteString(shader.Texture); // Texture name
+                w.WriteF32(1f); // Texture Intensity
+                w.WriteU8(0); // Blend function: 0 - Multiply
+                w.WriteU8(1); // Blend Source, 1 - blending constant
+                w.WriteF32(1f); // Blend Constant
+                w.WriteU8(0x00); // Texture Mod; 0x00: TM_NONE; shader should use texture coordinates of the model
+                w.WriteArray(Matrix4.GetIdentityMatrix().ToArray()); // Texture Transform Matrix Element
+                w.WriteArray(Matrix4.GetIdentityMatrix().ToArray()); // Texture Wrap Transform Matrix Element
+                w.WriteU8(0x03); // Texture Repeat
+            }
+            return w.GetBlock(BlockType.LitTextureShader);
         }
 
         #endregion PrivateMethods

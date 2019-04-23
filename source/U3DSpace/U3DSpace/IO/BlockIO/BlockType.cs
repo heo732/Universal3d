@@ -9,6 +9,7 @@
         ModelNode = 0xFFFFFF22,
         ShadingModifier = 0xFFFFFF45,
         MeshDeclaration = 0xFFFFFF31,
-        MeshContinuation = 0xFFFFFF3B
+        MeshContinuation = 0xFFFFFF3B,
+        LitTextureShader = 0xFFFFFF53
     }
 }
