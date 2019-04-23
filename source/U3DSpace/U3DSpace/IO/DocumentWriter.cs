@@ -7,6 +7,7 @@ using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.NodePrimitives;
+using U3DSpace.Primitives.TexturePrimitives;
 
 namespace U3DSpace.IO
 {
@@ -111,12 +112,18 @@ namespace U3DSpace.IO
 
         private static void WriteDeclarationsOfTextures(BinaryWriter writer, U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            foreach (Texture texture in doc.Textures.Values)
+            {
+                writer.Write(GetTextureResourceModifierChain(texture).ToArray());
+            }
         }
 
         private static void WriteContinuationsOfTextures(BinaryWriter writer, U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            foreach (Texture texture in doc.Textures.Values)
+            {
+                writer.Write(GetTextureContinuationBlock(texture).ToArray());
+            }
         }
 
         private static Block GetHeaderBlock(U3DDocument doc)
@@ -351,6 +358,48 @@ namespace U3DSpace.IO
             w.WriteF32(material.Reflectivity); // Reflectivity
             w.WriteF32(material.Opacity); // Opacity
             return w.GetBlock(BlockType.MaterialResource);
+        }
+
+        private static Block GetTextureDeclarationBlock(Texture texture)
+        {
+            var w = new BlockWriter();
+            w.WriteString(texture.Name); // texture name
+            // Texture image format.
+            w.WriteU32(0); // texture height
+            w.WriteU32(0); // texture width
+            w.WriteU8(0x0F); // texture image type, 0x0F - color RGBA
+            w.WriteU32(1); // continuation image count
+            // Continuation image format.
+            w.WriteU8((byte)texture.ImageFormat); // compression type, 0x01 - JPEG-24, 0x02 - PNG, 0x03 - JPEG-8, 0x04 - TIFF
+            w.WriteU8(0x0F); // texture image channels, 0x0F: alpha, red, green, blue
+            w.WriteU16(0x0000); // continuation image attributes, 0x0000 - default attributes
+            w.WriteU32((uint)texture.Image.Length); // image data byte count
+            return w.GetBlock(BlockType.TextureDeclaration);
+        }
+
+        private static Block GetTextureResourceModifierChain(Texture texture)
+        {
+            var w = new BlockWriter();
+            w.WriteString(texture.Name); // modifier chain name
+            w.WriteU32(2); // modifier chain type: 2 = texture resource modifier chain
+            w.WriteU32(0); // modifier chain attributes: 0 = neither bounding sphere nor
+            w.WritePadding(); // modifier chain padding
+            w.WriteU32(1); // modifier count in this chain
+            w.WriteBlock(GetTextureDeclarationBlock(texture));
+            return w.GetBlock(BlockType.ModifierChain);
+        }
+
+        private static Block GetTextureContinuationBlock(Texture texture)
+        {
+            var w = new BlockWriter();
+            w.WriteString(texture.Name); // texture name
+            w.WriteU32(0); // continuation image index
+            // Image data.
+            foreach (byte b in texture.Image)
+            {
+                w.WriteU8(b);
+            }
+            return w.GetBlock(BlockType.TextureContinuation);
         }
 
         #endregion PrivateMethods

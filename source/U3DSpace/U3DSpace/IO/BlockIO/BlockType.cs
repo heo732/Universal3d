@@ -11,6 +11,8 @@
         MeshDeclaration = 0xFFFFFF31,
         MeshContinuation = 0xFFFFFF3B,
         LitTextureShader = 0xFFFFFF53,
-        MaterialResource = 0xFFFFFF54
+        MaterialResource = 0xFFFFFF54,
+        TextureDeclaration = 0xFFFFFF55,
+        TextureContinuation = 0xFFFFFF5C
     }
 }
