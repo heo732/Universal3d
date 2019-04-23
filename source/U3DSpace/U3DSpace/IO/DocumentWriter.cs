@@ -4,6 +4,7 @@ using Spire.Pdf.Graphics;
 using System.IO;
 using U3DSpace.IO.BlockIO;
 using U3DSpace.Primitives;
+using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.NodePrimitives;
 
@@ -102,7 +103,10 @@ namespace U3DSpace.IO
 
         private static void WriteMaterials(BinaryWriter writer, U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            foreach (Material material in doc.Materials.Values)
+            {
+                writer.Write(GetMaterialResourceBlock(material).ToArray());
+            }
         }
 
         private static void WriteDeclarationsOfTextures(BinaryWriter writer, U3DDocument doc)
@@ -325,6 +329,28 @@ namespace U3DSpace.IO
                 w.WriteU8(0x03); // Texture Repeat
             }
             return w.GetBlock(BlockType.LitTextureShader);
+        }
+
+        private static Block GetMaterialResourceBlock(Material material)
+        {
+            var w = new BlockWriter();
+            w.WriteString(material.Name); // Material resource name
+            w.WriteU32(0x0000003F); // Material attributes: use all colors, opacity and reflectivity 0x0000003F
+            w.WriteF32(material.Ambient.R); // Ambient red
+            w.WriteF32(material.Ambient.G); // Ambient green
+            w.WriteF32(material.Ambient.B); // Ambient blue
+            w.WriteF32(material.Diffuse.R); // Diffuse red
+            w.WriteF32(material.Diffuse.G); // Diffuse green
+            w.WriteF32(material.Diffuse.B); // Diffuse blue
+            w.WriteF32(material.Specular.R); // Specular red
+            w.WriteF32(material.Specular.G); // Specular green
+            w.WriteF32(material.Specular.B); // Specular blue
+            w.WriteF32(material.Emissive.R); // Emissive red
+            w.WriteF32(material.Emissive.G); // Emissive green
+            w.WriteF32(material.Emissive.B); // Emissive blue
+            w.WriteF32(material.Reflectivity); // Reflectivity
+            w.WriteF32(material.Opacity); // Opacity
+            return w.GetBlock(BlockType.MaterialResource);
         }
 
         #endregion PrivateMethods

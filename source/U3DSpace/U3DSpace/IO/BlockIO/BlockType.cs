@@ -10,6 +10,7 @@
         ShadingModifier = 0xFFFFFF45,
         MeshDeclaration = 0xFFFFFF31,
         MeshContinuation = 0xFFFFFF3B,
-        LitTextureShader = 0xFFFFFF53
+        LitTextureShader = 0xFFFFFF53,
+        MaterialResource = 0xFFFFFF54
     }
 }
