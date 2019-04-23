@@ -1,7 +1,15 @@
-﻿namespace U3DSpace.Primitives.MeshPrimitives
+﻿using System.Collections;
+
+namespace U3DSpace.Primitives.MeshPrimitives
 {
-    public class Triangle
+    public class Triangle : IEnumerable, IEnumerator
     {
+        #region Fields
+
+        private byte _position;
+
+        #endregion Fields
+
         #region Constructors
 
         public Triangle()
@@ -27,6 +35,25 @@
         public Corner B { get; internal set; }
 
         public Corner C { get; internal set; }
+
+        public object Current
+        {
+            get
+            {
+                if (_position == 0)
+                {
+                    return A;
+                }
+                else if (_position == 1)
+                {
+                    return B;
+                }
+                else
+                {
+                    return C;
+                }
+            }
+        }
 
         #endregion Properties
 
@@ -64,6 +91,12 @@
         {
             return (A.GetHashCode() * 3) + (B.GetHashCode() * 5) + (C.GetHashCode() * 7);
         }
+
+        public IEnumerator GetEnumerator() => this;
+
+        public bool MoveNext() => ++_position < 3;
+
+        public void Reset() => _position = 0;
 
         #endregion Methods
     }

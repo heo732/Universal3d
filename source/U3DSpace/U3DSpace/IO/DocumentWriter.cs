@@ -3,6 +3,7 @@ using Spire.Pdf.Annotations;
 using Spire.Pdf.Graphics;
 using System.IO;
 using U3DSpace.IO.BlockIO;
+using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.NodePrimitives;
 
 namespace U3DSpace.IO
@@ -76,12 +77,18 @@ namespace U3DSpace.IO
 
         private static void WriteDeclarationsOfMeshes(BinaryWriter writer, U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            foreach (Mesh mesh in doc.Meshes.Values)
+            {
+                writer.Write(GetModelResourceModifierChain(mesh).ToArray());
+            }
         }
 
         private static void WriteContinuationsOfMeshes(BinaryWriter writer, U3DDocument doc)
         {
-            throw new System.NotImplementedException();
+            foreach (Mesh mesh in doc.Meshes.Values)
+            {
+                writer.Write(GetMeshContinuationBlock(mesh).ToArray());
+            }
         }
 
         private static void WriteShaders(BinaryWriter writer, U3DDocument doc)
@@ -181,31 +188,31 @@ namespace U3DSpace.IO
             return w.GetBlock(BlockType.ModifierChain);
         }
 
-        private static Block GetMeshDeclarationBlock(string meshName, uint vertexCount, uint normalCount, uint textureCoordCount, uint faceCount)
+        private static Block GetMeshDeclarationBlock(Mesh mesh)
         {
             var w = new BlockWriter();
-            w.WriteString(meshName); // mesh name, equal to ModelResourceModifierChain.ModifierChainName
+            w.WriteString(mesh.Name); // mesh name
             w.WriteU32(0); // chain index
             // Max mesh description.
-            w.WriteU32(normalCount == 0 ? 1u : 0u); // mesh attributes: 1 = no normals
-            w.WriteU32(faceCount); // face count
-            w.WriteU32(vertexCount); // positions count
-            w.WriteU32(normalCount); // normal count
+            w.WriteU32(mesh.Normals.Count == 0 ? 1u : 0u); // mesh attributes: 1 = no normals
+            w.WriteU32((uint)mesh.Triangles.Count); // face count
+            w.WriteU32((uint)mesh.Positions.Count); // positions count
+            w.WriteU32((uint)mesh.Normals.Count); // normal count
             w.WriteU32(0); // diffuse color count
             w.WriteU32(0); // specular color count
-            w.WriteU32(textureCoordCount); // texture coord count
+            w.WriteU32((uint)mesh.TextureCoordinates.Count); // texture coord count
             w.WriteU32(1); // shading count
             // Shading description.
             w.WriteU32(0); // shading attributes
-            w.WriteU32(textureCoordCount == 0 ? 0u : 1u); // texture layer count
-            if (textureCoordCount > 0)
+            w.WriteU32(mesh.TextureCoordinates.Count == 0 ? 0u : 1u); // texture layer count
+            if (mesh.TextureCoordinates.Count > 0)
             {
                 w.WriteU32(2); // texture coord dimensions
             }
             w.WriteU32(0); // original shading id
             // Clod desc.
-            w.WriteU32(vertexCount); // minimum resolution
-            w.WriteU32(vertexCount); // maximum resolution
+            w.WriteU32((uint)mesh.Positions.Count); // minimum resolution
+            w.WriteU32((uint)mesh.Positions.Count); // maximum resolution
             // Resource Description.
             w.WriteU32(300); // position quality factor
             w.WriteU32(300); // normal quality factor
@@ -220,86 +227,72 @@ namespace U3DSpace.IO
             w.WriteF32(0.985f); // normal tolerance parameter
             // Skeleton Description.
             w.WriteU32(0); // bone count
-            return w.GetBlock(0xFFFFFF31);
+            return w.GetBlock(BlockType.MeshDeclaration);
         }
 
-        private static Block GetModelResourceModifierChain(Node node, U3DDocument doc)
+        private static Block GetModelResourceModifierChain(Mesh mesh)
         {
             var w = new BlockWriter();
-            w.WriteString(modifierChainName); // modifier chain name, bonded to ModelNodeBlock.ModelResourceName
+            w.WriteString(mesh.Name); // modifier chain name, bonded to ModelNodeBlock.ModelResourceName
             w.WriteU32(1); // modifier chain type: 1 = model resource modifier chain
             w.WriteU32(0); // modifier chain attributes: 0 = neither bounding sphere nor
             // Bounding box info present. Padding.
             w.WritePadding();
             w.WriteU32(1); // modifier count in this chain
-            w.WriteBlock(GetMeshDeclarationBlock(meshName, vertexCount, normalCount, textureCoordCount, faceCount));
-            return w.GetBlock(0xFFFFFF14);
+            w.WriteBlock(GetMeshDeclarationBlock(mesh));
+            return w.GetBlock(BlockType.ModifierChain);
         }
 
-        private static Block GetMeshContinuationBlock(string meshName,
-            List<Vector3> vertices, List<Vector3> normals, List<Vector2> textureCoordinates,
-            List<Triangle> vertexFaces, List<Triangle> normalFaces, List<Triangle> textureFaces)
+        private static Block GetMeshContinuationBlock(Mesh mesh)
         {
             var w = new BlockWriter();
-            w.WriteString(meshName); // mesh name
+            w.WriteString(mesh.Name); // mesh name
             w.WriteU32(0); // chain index
             // Base Mesh Description.
-            w.WriteU32((uint)vertexFaces.Count); // base face count
-            w.WriteU32((uint)vertices.Count); // base position count
-            w.WriteU32((uint)normals.Count); // base normal count
+            w.WriteU32((uint)mesh.Triangles.Count); // base face count
+            w.WriteU32((uint)mesh.Positions.Count); // base position count
+            w.WriteU32((uint)mesh.Normals.Count); // base normal count
             w.WriteU32(0); // base diffuse color count
             w.WriteU32(0); // base specular color count
-            w.WriteU32((uint)textureCoordinates.Count); // base texture coordinate count
+            w.WriteU32((uint)mesh.TextureCoordinates.Count); // base texture coordinate count
             // Base Mesh Data.
-            foreach (var vertex in vertices)
+            foreach (Vector3 position in mesh.Positions)
             {
-                w.WriteF32(vertex.X);
-                w.WriteF32(vertex.Y);
-                w.WriteF32(vertex.Z);
+                w.WriteF32(position.X);
+                w.WriteF32(position.Y);
+                w.WriteF32(position.Z);
             }
-            foreach (var normal in normals)
+            foreach (Vector3 normal in mesh.Normals)
             {
                 w.WriteF32(normal.X);
                 w.WriteF32(normal.Y);
                 w.WriteF32(normal.Z);
             }
-            foreach (var textureCoord in textureCoordinates)
+            foreach (Vector2 textureCoordinate in mesh.TextureCoordinates)
             {
-                w.WriteF32(textureCoord.X);
-                w.WriteF32(-textureCoord.Y);
+                w.WriteF32(textureCoordinate.X);
+                w.WriteF32(textureCoordinate.Y);
                 w.WriteF32(0);
                 w.WriteF32(0);
             }
             // Base Face.
-            for (int i = 0; i < vertexFaces.Count; i++)
+            foreach (Triangle triangle in mesh.Triangles)
             {
                 w.WriteU32(0u); // shading id
-
-                w.WriteU32(vertexFaces[i].A); // position index, face corner A
-
-                if (normalFaces.Count > 0)
-                    w.WriteU32(normalFaces[i].A); // normal index, face corner A
-
-                if (textureFaces.Count > 0)
-                    w.WriteU32(textureFaces[i].A); // texture coord index, face corner A
-
-                w.WriteU32(vertexFaces[i].B); // position index, face corner B
-
-                if (normalFaces.Count > 0)
-                    w.WriteU32(normalFaces[i].B); // normal index, face corner B
-
-                if (textureFaces.Count > 0)
-                    w.WriteU32(textureFaces[i].B); // texture coord index, face corner B
-
-                w.WriteU32(vertexFaces[i].C); // position index, face corner C
-
-                if (normalFaces.Count > 0)
-                    w.WriteU32(normalFaces[i].C); // normal index, face corner C
-
-                if (textureFaces.Count > 0)
-                    w.WriteU32(textureFaces[i].C); // texture coord index, face corner C
+                foreach (Corner corner in triangle)
+                {
+                    w.WriteU32((uint)corner.Position);
+                    if (corner.Normal >= 0)
+                    {
+                        w.WriteU32((uint)corner.Normal);
+                    }
+                    if (corner.TextureCoordinate >= 0)
+                    {
+                        w.WriteU32((uint)corner.TextureCoordinate);
+                    }
+                }
             }
-            return w.GetBlock(0xFFFFFF3B);
+            return w.GetBlock(BlockType.MeshContinuation);
         }
 
         #endregion PrivateMethods

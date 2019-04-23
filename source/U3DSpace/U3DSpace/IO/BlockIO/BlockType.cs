@@ -7,6 +7,8 @@
         ModifierChain = 0xFFFFFF14,
         GroupNode = 0xFFFFFF21,
         ModelNode = 0xFFFFFF22,
-        ShadingModifier = 0xFFFFFF45
+        ShadingModifier = 0xFFFFFF45,
+        MeshDeclaration = 0xFFFFFF31,
+        MeshContinuation = 0xFFFFFF3B
     }
 }
