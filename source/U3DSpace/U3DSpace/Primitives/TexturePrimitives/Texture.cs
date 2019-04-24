@@ -17,6 +17,7 @@ namespace U3DSpace.Primitives.TexturePrimitives
         {
             Name = name;
             ImageFormat = imageFormat;
+            Image = new byte[image.Length];
             Array.Copy(image, Image, image.Length);
         }
 

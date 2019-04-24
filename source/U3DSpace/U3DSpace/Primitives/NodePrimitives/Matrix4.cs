@@ -15,6 +15,7 @@ namespace U3DSpace.Primitives.NodePrimitives
         {
             if (values.Length == 16)
             {
+                Values = new float[16];
                 Array.Copy(values, Values, 16);
             }
             else
@@ -27,6 +28,7 @@ namespace U3DSpace.Primitives.NodePrimitives
         {
             if (values.Length == 16)
             {
+                Values = new float[16];
                 Array.Copy(values, Values, 16);
             }
             else

@@ -17,20 +17,26 @@ namespace Rubik_s_Cube
         public static void Main(string[] args)
         {
             var doc = new U3DDocument();
+
             AddTextures(doc);
-            AddMaterial(doc);
+            doc.TryAddMaterial(new Material("default", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
             AddShaders(doc);
             AddMeshes(doc);
             AddNodes(doc);
+
+            doc.SaveToFile("result.u3d");
+            doc.SaveToFilePDF("result.pdf");
         }
 
         public static byte[] GetImageFromResources(string imageName)
         {
-            Assembly assembly = Assembly.GetEntryAssembly();
-            Stream stream = assembly.GetManifestResourceStream(string.Format(@"Resources\{0}", imageName));
-            var data = new byte[stream.Length];
-            stream.Read(data, 0, (int)stream.Length);
-            return data;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(string.Format("Rubik_s_Cube.Images.{0}", imageName)))
+            {
+                var data = new byte[stream.Length];
+                stream.Read(data, 0, (int)stream.Length);
+                return data;
+            }
         }
 
         public static void AddTextures(U3DDocument doc)
@@ -41,11 +47,6 @@ namespace Rubik_s_Cube
             doc.TryAddTexture(new Texture("right", ImageFormat.PNG, GetImageFromResources("right.png")));
             doc.TryAddTexture(new Texture("top", ImageFormat.PNG, GetImageFromResources("top.png")));
             doc.TryAddTexture(new Texture("bottom", ImageFormat.PNG, GetImageFromResources("bottom.png")));
-        }
-
-        public static void AddMaterial(U3DDocument doc)
-        {
-            doc.TryAddMaterial(new Material("default", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
         }
 
         public static void AddShaders(U3DDocument doc)
