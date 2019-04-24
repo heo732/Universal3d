@@ -111,8 +111,15 @@ namespace U3DSpace.IO.BlockIO
 
         public void WriteMetaString(string s, Encoding encoding)
         {
-            WriteMetaU16((ushort)s.Length);
-            WriteMetaData(encoding.GetBytes(s));
+            if (string.IsNullOrEmpty(s))
+            {
+                WriteMetaU16(0);
+            }
+            else
+            {
+                WriteMetaU16((ushort)s.Length);
+                WriteMetaData(encoding.GetBytes(s));
+            }   
         }
 
         public void WriteMetaString(string s)
@@ -174,8 +181,15 @@ namespace U3DSpace.IO.BlockIO
 
         public void WriteString(string s, Encoding encoding)
         {
-            WriteU16((ushort)s.Length);
-            WriteData(encoding.GetBytes(s));
+            if (string.IsNullOrEmpty(s))
+            {
+                WriteU16(0);
+            }
+            else
+            {
+                WriteU16((ushort)s.Length);
+                WriteData(encoding.GetBytes(s));
+            }
         }
 
         public void WriteString(string s)
