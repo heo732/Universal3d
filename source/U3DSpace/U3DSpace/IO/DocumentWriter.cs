@@ -26,8 +26,8 @@ namespace U3DSpace.IO
             {
                 Save(u3dDocStream, u3dDoc);
             }
+
             Pdf3DAnnotation annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName);
-            File.Delete(u3dTempFileName);
 
             annotation.Activation = new Pdf3DActivation();
             annotation.Activation.ActivationMode = Pdf3DActivationMode.PageOpen;
@@ -42,6 +42,8 @@ namespace U3DSpace.IO
             page.AnnotationsWidget.Add(annotation);
 
             pdfDoc.SaveToStream(pdfDocStream, FileFormat.PDF);
+
+            File.Delete(u3dTempFileName);
         }
 
         public static void Save(Stream stream, U3DDocument doc)

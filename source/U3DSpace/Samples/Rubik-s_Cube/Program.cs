@@ -25,7 +25,7 @@ namespace Rubik_s_Cube
             AddNodes(doc);
 
             doc.SaveToFile("result.u3d");
-            //doc.SaveToFilePDF("result.pdf");
+            doc.SaveToFilePDF("result.pdf");
         }
 
         public static byte[] GetImageFromResources(string imageName)
