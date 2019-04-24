@@ -6,4 +6,8 @@
     <RootNamespace>Rubik_s_Cube</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\U3DSpace\U3DSpace.csproj" />
+  </ItemGroup>
+
 </Project>
