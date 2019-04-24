@@ -5,6 +5,7 @@ using U3DSpace;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
+using U3DSpace.Primitives.NodePrimitives;
 using U3DSpace.Primitives.TexturePrimitives;
 
 namespace Rubik_s_Cube
@@ -20,6 +21,7 @@ namespace Rubik_s_Cube
             AddMaterial(doc);
             AddShaders(doc);
             AddMeshes(doc);
+            AddNodes(doc);
         }
 
         public static byte[] GetImageFromResources(string imageName)
@@ -43,7 +45,7 @@ namespace Rubik_s_Cube
 
         public static void AddMaterial(U3DDocument doc)
         {
-            doc.TryAddMaterial(new Material("default", new Color(0.1f), new Color(1.0f), new Color(0.3f), new Color(0.0f), 0.1f, 1.0f));
+            doc.TryAddMaterial(new Material("default", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
         }
 
         public static void AddShaders(U3DDocument doc)
@@ -60,8 +62,30 @@ namespace Rubik_s_Cube
         {
             doc.TryAddMesh(new Mesh(
                 "front", "front",
-                new List<Vector3> { new Vector3(1.0, 1.0, 1.0) }
+                new List<Vector3> { new Vector3(-1), new Vector3(-1, 1, -1), new Vector3(1, 1, -1), new Vector3(1, -1, -1) },
+                new List<Vector3> { new Vector3(0, 0, -1) },
+                new List<Vector2> { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) },
+                new List<Triangle> { new Triangle(new Corner(0, 0, 0), new Corner(1, 0, 1), new Corner(2, 0, 2)), new Triangle(new Corner(0, 0, 0), new Corner(2, 0, 2), new Corner(3, 0, 3)) }
                 ));
+            doc.TryAddMesh(new Mesh(
+                "back", "back",
+                new List<Vector3> { new Vector3(1, -1, 1), new Vector3(1), new Vector3(-1, 1, 1), new Vector3(-1, -1, 1) },
+                new List<Vector3> { new Vector3(0, 0, 1) },
+                new List<Vector2> { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) },
+                new List<Triangle> { new Triangle(new Corner(0, 0, 0), new Corner(1, 0, 1), new Corner(2, 0, 2)), new Triangle(new Corner(0, 0, 0), new Corner(2, 0, 2), new Corner(3, 0, 3)) }
+                ));
+        }
+
+        public static void AddNodes(U3DDocument doc)
+        {
+            string rootNodeName = "Rubik's Cube";
+            doc.TryAddNode(new Node(rootNodeName, null, null, Matrix4.GetIdentityMatrix()));
+            doc.TryAddNode(new Node("front", "front", rootNodeName, Matrix4.GetIdentityMatrix()));
+            doc.TryAddNode(new Node("back", "back", rootNodeName, Matrix4.GetIdentityMatrix()));
+            //doc.TryAddNode(new Node("left", "left", rootNodeName, Matrix4.GetIdentityMatrix()));
+            //doc.TryAddNode(new Node("right", "right", rootNodeName, Matrix4.GetIdentityMatrix()));
+            //doc.TryAddNode(new Node("top", "top", rootNodeName, Matrix4.GetIdentityMatrix()));
+            //doc.TryAddNode(new Node("bottom", "bottom", rootNodeName, Matrix4.GetIdentityMatrix()));
         }
 
         #endregion Methods

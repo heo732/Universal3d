@@ -117,8 +117,15 @@ namespace U3DSpace.IO.BlockIO
 
         public void WriteMetaString(string s)
         {
-            WriteMetaU16((ushort)s.Length);
-            WriteMetaData(Encoding.UTF8.GetBytes(s));
+            if (string.IsNullOrEmpty(s))
+            {
+                WriteMetaU16(0);
+            }
+            else
+            {
+                WriteMetaU16((ushort)s.Length);
+                WriteMetaData(Encoding.UTF8.GetBytes(s));
+            }
         }
 
         public void WriteMetaU16(ushort value)
@@ -173,8 +180,15 @@ namespace U3DSpace.IO.BlockIO
 
         public void WriteString(string s)
         {
-            WriteU16((ushort)s.Length);
-            WriteData(Encoding.UTF8.GetBytes(s));
+            if (string.IsNullOrEmpty(s))
+            {
+                WriteU16(0);
+            }
+            else
+            {
+                WriteU16((ushort)s.Length);
+                WriteData(Encoding.UTF8.GetBytes(s));
+            }
         }
 
         public void WriteU16(ushort value)
