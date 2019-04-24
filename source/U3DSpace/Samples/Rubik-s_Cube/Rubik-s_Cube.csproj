@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Textures\back.png" />
+    <None Remove="Textures\bottom.png" />
+    <None Remove="Textures\front.png" />
+    <None Remove="Textures\left.png" />
+    <None Remove="Textures\right.png" />
+    <None Remove="Textures\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Textures\back.png" />
+    <EmbeddedResource Include="Textures\bottom.png" />
+    <EmbeddedResource Include="Textures\front.png" />
+    <EmbeddedResource Include="Textures\left.png" />
+    <EmbeddedResource Include="Textures\right.png" />
+    <EmbeddedResource Include="Textures\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\U3DSpace\U3DSpace.csproj" />
   </ItemGroup>
 
