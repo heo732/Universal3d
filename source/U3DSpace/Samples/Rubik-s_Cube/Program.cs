@@ -26,6 +26,8 @@ namespace Rubik_s_Cube
 
             doc.SaveToFile("result.u3d");
             doc.SaveToFilePDF("result.pdf");
+
+            System.Console.WriteLine("Successfully!");
         }
 
         public static byte[] GetImageFromResources(string imageName)
