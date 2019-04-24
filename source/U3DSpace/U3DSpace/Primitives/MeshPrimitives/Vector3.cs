@@ -20,11 +20,25 @@ namespace U3DSpace.Primitives.MeshPrimitives
             Z = z;
         }
 
+        public Vector3(double x, double y, double z)
+        {
+            X = (float)x;
+            Y = (float)y;
+            Z = (float)z;
+        }
+
         public Vector3(float value)
         {
             X = value;
             Y = value;
             Z = value;
+        }
+
+        public Vector3(double value)
+        {
+            X = (float)value;
+            Y = (float)value;
+            Z = (float)value;
         }
 
         public Vector3(Vector3 vector3)

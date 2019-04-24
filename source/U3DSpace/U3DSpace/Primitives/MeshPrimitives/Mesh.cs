@@ -16,6 +16,16 @@ namespace U3DSpace.Primitives.MeshPrimitives
             Triangles = new List<Triangle>();
         }
 
+        public Mesh(string name, string shader, List<Vector3> positions, List<Vector3> normals, List<Vector2> textureCoordinates, List<Triangle> triangles)
+        {
+            Name = name;
+            Shader = shader;
+            Positions = new List<Vector3>(positions);
+            Normals = new List<Vector3>(normals);
+            TextureCoordinates = new List<Vector2>(textureCoordinates);
+            Triangles = new List<Triangle>(triangles);
+        }
+
         #endregion Constructors
 
         #region Properties

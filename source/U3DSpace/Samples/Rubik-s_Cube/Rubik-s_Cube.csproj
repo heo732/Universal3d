@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>Rubik_s_Cube</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\back.png" />
+    <None Remove="Images\bottom.png" />
+    <None Remove="Images\front.png" />
+    <None Remove="Images\left.png" />
+    <None Remove="Images\right.png" />
+    <None Remove="Images\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\back.png" />
+    <EmbeddedResource Include="Images\bottom.png" />
+    <EmbeddedResource Include="Images\front.png" />
+    <EmbeddedResource Include="Images\left.png" />
+    <EmbeddedResource Include="Images\right.png" />
+    <EmbeddedResource Include="Images\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\U3DSpace\U3DSpace.csproj" />
+  </ItemGroup>
+
+</Project>

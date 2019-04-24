@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace U3DSpace.IO.BlockIO
 {
@@ -78,7 +79,11 @@ namespace U3DSpace.IO.BlockIO
 
         public byte[] ToArray()
         {
-            var result = new List<byte>(Data);
+            var result = new List<byte>();
+            result.AddRange(BitConverter.GetBytes((uint)Type));
+            result.AddRange(BitConverter.GetBytes((uint)Data.Count));
+            result.AddRange(BitConverter.GetBytes((uint)MetaData.Count));
+            result.AddRange(Data);
             result.AddRange(DataAligning);
             result.AddRange(MetaData);
             result.AddRange(MetaDataAligning);
