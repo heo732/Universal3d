@@ -137,8 +137,8 @@ namespace U3DSpace.IO
             //Meta data.
             w.WriteMetaU32(1); // Key/Value Pair Count
             w.WriteMetaU32(0); // Key/Value Pair Attributes; 0x00000000 - indicates the Value is formatted as a String
-            w.WriteMetaString("{Created_by", doc.TextEncoding); // Key String
-            w.WriteMetaString("GLTFtoU3D_converter}", doc.TextEncoding); // Value String
+            w.WriteMetaString("Created by", doc.TextEncoding); // Key String
+            w.WriteMetaString("U3DSpace", doc.TextEncoding); // Value String
             return w.GetBlock(BlockType.Header);
         }
 
