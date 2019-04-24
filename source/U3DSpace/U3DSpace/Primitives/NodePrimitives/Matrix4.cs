@@ -23,12 +23,33 @@ namespace U3DSpace.Primitives.NodePrimitives
             }
         }
 
+        public Matrix4(double[] values)
+        {
+            if (values.Length == 16)
+            {
+                Array.Copy(values, Values, 16);
+            }
+            else
+            {
+                Values = new float[16];
+            }
+        }
+
         public Matrix4(float value)
         {
             Values = new float[16];
             for (int i = 0; i < 16; i++)
             {
                 Values[i] = value;
+            }
+        }
+
+        public Matrix4(double value)
+        {
+            Values = new float[16];
+            for (int i = 0; i < 16; i++)
+            {
+                Values[i] = (float)value;
             }
         }
 

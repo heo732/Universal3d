@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using U3DSpace;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
+using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.TexturePrimitives;
 
 namespace Rubik_s_Cube
@@ -56,6 +58,10 @@ namespace Rubik_s_Cube
 
         public static void AddMeshes(U3DDocument doc)
         {
+            doc.TryAddMesh(new Mesh(
+                "front", "front",
+                new List<Vector3> { new Vector3(1.0, 1.0, 1.0) }
+                ));
         }
 
         #endregion Methods

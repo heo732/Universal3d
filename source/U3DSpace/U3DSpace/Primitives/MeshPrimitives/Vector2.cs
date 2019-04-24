@@ -18,10 +18,22 @@ namespace U3DSpace.Primitives.MeshPrimitives
             Y = y;
         }
 
+        public Vector2(double x, double y)
+        {
+            X = (float)x;
+            Y = (float)y;
+        }
+
         public Vector2(float value)
         {
             X = value;
             Y = value;
+        }
+
+        public Vector2(double value)
+        {
+            X = (float)value;
+            Y = (float)value;
         }
 
         public Vector2(Vector2 vector2)

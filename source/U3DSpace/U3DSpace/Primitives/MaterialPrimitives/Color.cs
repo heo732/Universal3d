@@ -20,11 +20,25 @@ namespace U3DSpace.Primitives.MaterialPrimitives
             B = blue;
         }
 
+        public Color(double red, double green, double blue)
+        {
+            R = (float)red;
+            G = (float)green;
+            B = (float)blue;
+        }
+
         public Color(float value)
         {
             R = value;
             G = value;
             B = value;
+        }
+
+        public Color(double value)
+        {
+            R = (float)value;
+            G = (float)value;
+            B = (float)value;
         }
 
         public Color(Color color)
