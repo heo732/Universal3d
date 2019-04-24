@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Reflection;
 using U3DSpace;
+using U3DSpace.Primitives;
+using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.TexturePrimitives;
 
 namespace Rubik_s_Cube
@@ -13,6 +15,9 @@ namespace Rubik_s_Cube
         {
             var doc = new U3DDocument();
             AddTextures(doc);
+            AddMaterial(doc);
+            AddShaders(doc);
+            AddMeshes(doc);
         }
 
         public static byte[] GetImageFromResources(string imageName)
@@ -32,6 +37,25 @@ namespace Rubik_s_Cube
             doc.TryAddTexture(new Texture("right", ImageFormat.PNG, GetImageFromResources("right.png")));
             doc.TryAddTexture(new Texture("top", ImageFormat.PNG, GetImageFromResources("top.png")));
             doc.TryAddTexture(new Texture("bottom", ImageFormat.PNG, GetImageFromResources("bottom.png")));
+        }
+
+        public static void AddMaterial(U3DDocument doc)
+        {
+            doc.TryAddMaterial(new Material("default", new Color(0.1f), new Color(1.0f), new Color(0.3f), new Color(0.0f), 0.1f, 1.0f));
+        }
+
+        public static void AddShaders(U3DDocument doc)
+        {
+            doc.TryAddShader(new Shader("front", "default", "front"));
+            doc.TryAddShader(new Shader("back", "default", "back"));
+            doc.TryAddShader(new Shader("left", "default", "left"));
+            doc.TryAddShader(new Shader("right", "default", "right"));
+            doc.TryAddShader(new Shader("top", "default", "top"));
+            doc.TryAddShader(new Shader("bottom", "default", "bottom"));
+        }
+
+        public static void AddMeshes(U3DDocument doc)
+        {
         }
 
         #endregion Methods
