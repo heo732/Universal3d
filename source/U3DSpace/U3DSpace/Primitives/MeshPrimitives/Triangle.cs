@@ -6,7 +6,7 @@ namespace U3DSpace.Primitives.MeshPrimitives
     {
         #region Fields
 
-        private byte _position;
+        private short _position;
 
         #endregion Fields
 
@@ -17,6 +17,7 @@ namespace U3DSpace.Primitives.MeshPrimitives
             A = new Corner();
             B = new Corner();
             C = new Corner();
+            _position = -1;
         }
 
         public Triangle(Corner a, Corner b, Corner c)
@@ -24,6 +25,14 @@ namespace U3DSpace.Primitives.MeshPrimitives
             A = new Corner(a);
             B = new Corner(b);
             C = new Corner(c);
+            _position = -1;
+        }
+
+        public Triangle(Triangle t)
+        {
+            A = new Corner(t.A);
+            B = new Corner(t.B);
+            C = new Corner(t.C);
         }
 
         #endregion Constructors
@@ -92,11 +101,15 @@ namespace U3DSpace.Primitives.MeshPrimitives
             return (A.GetHashCode() * 3) + (B.GetHashCode() * 5) + (C.GetHashCode() * 7);
         }
 
-        public IEnumerator GetEnumerator() => this;
+        public IEnumerator GetEnumerator()
+        {
+            Reset();
+            return this;
+        }
 
         public bool MoveNext() => ++_position < 3;
 
-        public void Reset() => _position = 0;
+        public void Reset() => _position = -1;
 
         #endregion Methods
     }

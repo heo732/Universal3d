@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using U3DSpace.IO;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
@@ -96,6 +97,10 @@ namespace U3DSpace
                 return false;
             }
             if (!string.IsNullOrEmpty(shader.Texture) && !Textures.ContainsKey(shader.Texture))
+            {
+                return false;
+            }
+            if ((from _shader in Shaders.Values where _shader.Material == shader.Material select _shader).Count() > 0)
             {
                 return false;
             }
