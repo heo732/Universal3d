@@ -53,7 +53,7 @@ namespace Rubik_s_Cube
 
         public static void AddMaterials(U3DDocument doc)
         {
-            doc.TryAddMaterial(new Material("default_material", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0.1), 0.1f, 1.0f));
+            doc.TryAddMaterial(new Material("default_material", new Color(0.1), new Color(1.0), new Color(0.5), new Color(0.0), 1.0f, 1.0f));
         }
 
         public static void AddShaders(U3DDocument doc)
@@ -91,6 +91,27 @@ namespace Rubik_s_Cube
                 textureCoordinates,
                 triangles
                 ));
+            doc.TryAddMesh(new Mesh(
+                "right_mesh", "right_shader",
+                new List<Vector3> { new Vector3(1, -1, 1), new Vector3(1, 1, 1), new Vector3(1, 1, -1), new Vector3(1, -1, -1) },
+                new List<Vector3> { new Vector3(1, 0, 0) },
+                textureCoordinates,
+                triangles
+                ));
+            doc.TryAddMesh(new Mesh(
+                "top_mesh", "top_shader",
+                new List<Vector3> { new Vector3(-1, 1, 1), new Vector3(-1, 1, -1), new Vector3(1, 1, -1), new Vector3(1, 1, 1) },
+                new List<Vector3> { new Vector3(0, 1, 0) },
+                textureCoordinates,
+                triangles
+                ));
+            doc.TryAddMesh(new Mesh(
+                "bottom_mesh", "bottom_shader",
+                new List<Vector3> { new Vector3(-1, -1, -1), new Vector3(-1, -1, 1), new Vector3(1, -1, 1), new Vector3(1, -1, -1) },
+                new List<Vector3> { new Vector3(0, -1, 0) },
+                textureCoordinates,
+                triangles
+                ));
         }
 
         public static void AddNodes(U3DDocument doc)
@@ -100,9 +121,9 @@ namespace Rubik_s_Cube
             doc.TryAddNode(new Node("front", "front_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
             doc.TryAddNode(new Node("back", "back_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
             doc.TryAddNode(new Node("left", "left_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
-            //doc.TryAddNode(new Node("right", "right", rootNodeName, Matrix4.GetIdentityMatrix()));
-            //doc.TryAddNode(new Node("top", "top", rootNodeName, Matrix4.GetIdentityMatrix()));
-            //doc.TryAddNode(new Node("bottom", "bottom", rootNodeName, Matrix4.GetIdentityMatrix()));
+            doc.TryAddNode(new Node("right", "right_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
+            doc.TryAddNode(new Node("top", "top_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
+            doc.TryAddNode(new Node("bottom", "bottom_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
         }
 
         #endregion Methods
