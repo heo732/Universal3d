@@ -22,10 +22,7 @@ namespace U3DSpace.IO
             var rectangle = new System.Drawing.Rectangle(0, 0, (int)(page.Size.Width - 60.0f), (int)(page.Size.Height - 60.0f));
 
             string u3dTempFileName = Path.GetTempFileName();
-            using (var u3dDocStream = new FileStream(u3dTempFileName, FileMode.Create))
-            {
-                Save(u3dDocStream, u3dDoc);
-            }
+            Save(File.Create(u3dTempFileName), u3dDoc);
 
             Pdf3DAnnotation annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName);
 
@@ -36,7 +33,7 @@ namespace U3DSpace.IO
             View.ExternalName = "Default";
             View.InternalName = "Default";
             View.ViewNodeName = "Default";
-            View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);            
+            View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);
             View.LightingScheme = new Pdf3DLighting();
             View.LightingScheme.Style = Pdf3DLightingStyle.Day;
             annotation.Views.Add(View);
@@ -49,7 +46,7 @@ namespace U3DSpace.IO
 
         public static void Save(Stream stream, U3DDocument doc)
         {
-            using (var writer = new BinaryWriter(stream, doc.TextEncoding, true))
+            using (var writer = new BinaryWriter(stream))
             {
                 writer.Write(GetHeaderBlock(doc).ToArray());
                 WriteNodes(writer, doc);

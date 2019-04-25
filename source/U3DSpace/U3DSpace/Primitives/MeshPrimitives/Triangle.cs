@@ -101,7 +101,11 @@ namespace U3DSpace.Primitives.MeshPrimitives
             return (A.GetHashCode() * 3) + (B.GetHashCode() * 5) + (C.GetHashCode() * 7);
         }
 
-        public IEnumerator GetEnumerator() => this;
+        public IEnumerator GetEnumerator()
+        {
+            Reset();
+            return this;
+        }
 
         public bool MoveNext() => ++_position < 3;
 
