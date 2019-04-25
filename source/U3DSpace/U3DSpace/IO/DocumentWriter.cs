@@ -35,7 +35,7 @@ namespace U3DSpace.IO
             View.ViewNodeName = "Default";
             View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);
             View.LightingScheme = new Pdf3DLighting();
-            View.LightingScheme.Style = Pdf3DLightingStyle.Day;
+            View.LightingScheme.Style = Pdf3DLightingStyle.Hard;
             annotation.Views.Add(View);
             page.AnnotationsWidget.Add(annotation);
 
