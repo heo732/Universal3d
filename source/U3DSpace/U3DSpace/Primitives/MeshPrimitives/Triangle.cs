@@ -103,7 +103,7 @@ namespace U3DSpace.Primitives.MeshPrimitives
 
         public IEnumerator GetEnumerator() => this;
 
-        public bool MoveNext() => _position++ < 3;
+        public bool MoveNext() => ++_position < 3;
 
         public void Reset() => _position = -1;
 
