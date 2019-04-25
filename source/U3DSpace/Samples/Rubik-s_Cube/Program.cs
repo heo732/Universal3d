@@ -53,7 +53,7 @@ namespace Rubik_s_Cube
 
         public static void AddMaterials(U3DDocument doc)
         {
-            doc.TryAddMaterial(new Material("front_material", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
+            doc.TryAddMaterial(new Material("front_material", new Color(0.1), new Color(0.0, 0.0, 1.0), new Color(0.3), new Color(0.1), 0.1f, 1.0f));
             //doc.TryAddMaterial(new Material("back", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
             //doc.TryAddMaterial(new Material("left", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
             //doc.TryAddMaterial(new Material("right", new Color(0.1), new Color(1.0), new Color(0.3), new Color(0), 0.1f, 1));
@@ -77,8 +77,8 @@ namespace Rubik_s_Cube
                 "front_mesh", "front_shader",
                 new List<Vector3> { new Vector3(-1), new Vector3(-1, 1, -1), new Vector3(1, 1, -1), new Vector3(1, -1, -1) },
                 new List<Vector3> { new Vector3(0, 0, -1) },
-                new List<Vector2>(),
-                new List<Triangle> { new Triangle(new Corner(0, 0, -1), new Corner(1, 0, -1), new Corner(2, 0, -1)), new Triangle(new Corner(0, 0, -1), new Corner(2, 0, -1), new Corner(3, 0, -1)) }
+                new List<Vector2> { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) },
+                new List<Triangle> { new Triangle(new Corner(0, 0, 0), new Corner(1, 0, 1), new Corner(2, 0, 2)) }
                 ));
             //doc.TryAddMesh(new Mesh(
             //    "back", "back",

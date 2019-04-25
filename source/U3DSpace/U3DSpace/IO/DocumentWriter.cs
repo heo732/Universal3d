@@ -33,9 +33,10 @@ namespace U3DSpace.IO
             annotation.Activation.ActivationMode = Pdf3DActivationMode.PageOpen;
             Pdf3DView View = new Pdf3DView();
             View.Background = new Pdf3DBackground(new PdfRGBColor(System.Drawing.Color.White));
-            View.ViewNodeName = "DefaultView";
-            View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);
+            View.ExternalName = "Default";
             View.InternalName = "Default";
+            View.ViewNodeName = "Default";
+            View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);            
             View.LightingScheme = new Pdf3DLighting();
             View.LightingScheme.Style = Pdf3DLightingStyle.Day;
             annotation.Views.Add(View);
