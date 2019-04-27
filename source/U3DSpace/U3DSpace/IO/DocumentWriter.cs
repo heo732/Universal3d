@@ -28,15 +28,15 @@ namespace U3DSpace.IO
 
             annotation.Activation = new Pdf3DActivation();
             annotation.Activation.ActivationMode = Pdf3DActivationMode.PageOpen;
-            var View = new Pdf3DView();
-            View.Background = new Pdf3DBackground(new PdfRGBColor(System.Drawing.Color.White));
-            View.ExternalName = "Default";
-            View.InternalName = "Default";
-            View.ViewNodeName = "Default";
-            View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);
-            View.LightingScheme = new Pdf3DLighting();
-            View.LightingScheme.Style = Pdf3DLightingStyle.Hard;
-            annotation.Views.Add(View);
+            var view = new Pdf3DView();
+            view.Background = new Pdf3DBackground(new PdfRGBColor(System.Drawing.Color.White));
+            view.ExternalName = "Default";
+            view.InternalName = "Default";
+            view.ViewNodeName = "Default";
+            view.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);
+            view.LightingScheme = new Pdf3DLighting();
+            view.LightingScheme.Style = Pdf3DLightingStyle.Hard;
+            annotation.Views.Add(view);
             page.AnnotationsWidget.Add(annotation);
 
             pdfDoc.SaveToStream(pdfDocStream, FileFormat.PDF);
