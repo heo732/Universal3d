@@ -121,7 +121,7 @@ namespace U3DSpace
             return true;
         }
 
-        public void Save(Stream stream) => DocumentWriter.Save(this, stream);
+        public void Save(Stream stream, bool leaveOpen = false) => DocumentWriter.Save(this, stream, leaveOpen);
 
         public void SaveToFile(string filePath)
         {
@@ -131,17 +131,17 @@ namespace U3DSpace
             }
         }
 
-        public void SavePDF(Stream stream) => DocumentWriter.SavePDF(this, stream);
+        public void SavePdf(Stream stream) => DocumentWriter.SavePdf(this, stream);
 
         public void SaveToPdfFile(string filePath)
         {
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                SavePDF(stream);
+                SavePdf(stream);
             }
         }
 
-        public void Read(Stream stream) => DocumentReader.Read(this, stream);
+        public void Read(Stream stream, bool leaveOpen = false) => DocumentReader.Read(this, stream, leaveOpen);
 
         public void ReadFromFile(string filePath)
         {

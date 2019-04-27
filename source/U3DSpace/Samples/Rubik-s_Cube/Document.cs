@@ -37,7 +37,7 @@ namespace Rubik_s_Cube
 
         public static void SavePDF(Stream stream)
         {
-            GetDocument().SavePDF(stream);
+            GetDocument().SavePdf(stream);
         }
 
         public static void SaveToPdfFile(string filePath)

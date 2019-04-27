@@ -15,7 +15,7 @@ namespace U3DSpace.IO
     {
         #region PublicMethods
 
-        public static void SavePDF(U3DDocument u3dDoc, Stream pdfDocStream)
+        public static void SavePdf(U3DDocument u3dDoc, Stream pdfDocStream)
         {
             var pdfDoc = new PdfDocument();
             PdfPageBase page = pdfDoc.Pages.Add(PdfPageSize.A4, new PdfMargins(30.0f), PdfPageRotateAngle.RotateAngle0, PdfPageOrientation.Landscape);
@@ -44,9 +44,9 @@ namespace U3DSpace.IO
             File.Delete(u3dTempFileName);
         }
 
-        public static void Save(U3DDocument doc, Stream stream)
+        public static void Save(U3DDocument doc, Stream stream, bool leaveOpen = false)
         {
-            using (var writer = new BinaryWriter(stream))
+            using (var writer = new BinaryWriter(stream, doc.TextEncoding, leaveOpen))
             {
                 writer.Write(GetHeaderBlock(doc).ToArray());
                 WriteNodes(writer, doc);

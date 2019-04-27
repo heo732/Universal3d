@@ -7,9 +7,9 @@ namespace U3DSpace.IO
     {
         #region PublicMethods
 
-        public static void Read(U3DDocument doc, Stream stream)
+        public static void Read(U3DDocument doc, Stream stream, bool leaveOpen = false)
         {
-            using (var reader = new StreamReader(stream))
+            using (var reader = new StreamReader(stream, doc.TextEncoding, false, 1024, leaveOpen))
             {
                 throw new System.NotImplementedException();
             }
