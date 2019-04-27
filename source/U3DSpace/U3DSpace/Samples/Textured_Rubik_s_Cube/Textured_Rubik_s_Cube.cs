@@ -9,7 +9,7 @@ using U3DSpace.Primitives.TexturePrimitives;
 
 namespace U3DSpace.Samples
 {
-    public static class Rubik_s_Cube
+    public static class Textured_Rubik_s_Cube
     {
         #region PublicMethods
 
@@ -28,18 +28,10 @@ namespace U3DSpace.Samples
 
         #region PrivateMethods
 
-        private static void Main(string[] args)
-        {
-            var doc = GetDocument();
-            doc.SaveToFile("result.u3d");
-            doc.SaveToPdfFile("result.pdf");
-            System.Console.WriteLine("Successfully!");
-        }
-
         private static byte[] GetImageFromResources(string imageName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream(string.Format("Rubik_s_Cube.Images.{0}", imageName)))
+            using (Stream stream = assembly.GetManifestResourceStream(string.Format("U3DSpace.Samples.Textured_Rubik_s_Cube.Images.{0}", imageName)))
             {
                 var data = new byte[stream.Length];
                 stream.Read(data, 0, (int)stream.Length);

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rubik-s_Cube", "Samples\Rubik-s_Cube\Rubik-s_Cube.csproj", "{ACF9E286-6DA0-4A2D-9346-43889E5D3FE9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "U3DSpace", "U3DSpace\U3DSpace.csproj", "{329D4140-073D-44B4-906A-1399DC0F40B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Textured_Rubik_s_Cube", "Samples\Textured_Rubik_s_Cube\Textured_Rubik_s_Cube.csproj", "{F5996E11-9E14-4C5A-8D7C-0ED989D54503}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ACF9E286-6DA0-4A2D-9346-43889E5D3FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACF9E286-6DA0-4A2D-9346-43889E5D3FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACF9E286-6DA0-4A2D-9346-43889E5D3FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACF9E286-6DA0-4A2D-9346-43889E5D3FE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{329D4140-073D-44B4-906A-1399DC0F40B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{329D4140-073D-44B4-906A-1399DC0F40B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{329D4140-073D-44B4-906A-1399DC0F40B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{329D4140-073D-44B4-906A-1399DC0F40B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5996E11-9E14-4C5A-8D7C-0ED989D54503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5996E11-9E14-4C5A-8D7C-0ED989D54503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5996E11-9E14-4C5A-8D7C-0ED989D54503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5996E11-9E14-4C5A-8D7C-0ED989D54503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
