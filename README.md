@@ -1,1 +1,1 @@
-# The "U3DSpace" is a library for load, create and save files in Universal 3D format (ECMA-363).
+# The "U3DSpace" is a library for work with files of Universal 3D format (ECMA-363).
