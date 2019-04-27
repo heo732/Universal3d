@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Samples\Textured_Rubik_s_Cube\Images\back.png" />
+    <None Remove="Samples\Textured_Rubik_s_Cube\Images\bottom.png" />
+    <None Remove="Samples\Textured_Rubik_s_Cube\Images\front.png" />
+    <None Remove="Samples\Textured_Rubik_s_Cube\Images\left.png" />
+    <None Remove="Samples\Textured_Rubik_s_Cube\Images\right.png" />
+    <None Remove="Samples\Textured_Rubik_s_Cube\Images\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\back.png" />
+    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\bottom.png" />
+    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\front.png" />
+    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\left.png" />
+    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\right.png" />
+    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FreeSpire.PDF" Version="5.1.0" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
   </ItemGroup>
