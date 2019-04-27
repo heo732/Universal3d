@@ -15,14 +15,14 @@ namespace U3DSpace.IO
     {
         #region PublicMethods
 
-        public static void SavePDF(Stream pdfDocStream, U3DDocument u3dDoc)
+        public static void SavePdf(U3DDocument u3dDoc, Stream pdfDocStream)
         {
             var pdfDoc = new PdfDocument();
             PdfPageBase page = pdfDoc.Pages.Add(PdfPageSize.A4, new PdfMargins(30.0f), PdfPageRotateAngle.RotateAngle0, PdfPageOrientation.Landscape);
             var rectangle = new System.Drawing.Rectangle(0, 0, (int)(page.Size.Width - 60.0f), (int)(page.Size.Height - 60.0f));
 
             string u3dTempFileName = Path.GetTempFileName();
-            Save(File.Create(u3dTempFileName), u3dDoc);
+            Save(u3dDoc, File.Create(u3dTempFileName));
 
             Pdf3DAnnotation annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName);
 
@@ -44,9 +44,9 @@ namespace U3DSpace.IO
             File.Delete(u3dTempFileName);
         }
 
-        public static void Save(Stream stream, U3DDocument doc)
+        public static void Save(U3DDocument doc, Stream stream, bool leaveOpen = false)
         {
-            using (var writer = new BinaryWriter(stream))
+            using (var writer = new BinaryWriter(stream, doc.TextEncoding, leaveOpen))
             {
                 writer.Write(GetHeaderBlock(doc).ToArray());
                 WriteNodes(writer, doc);

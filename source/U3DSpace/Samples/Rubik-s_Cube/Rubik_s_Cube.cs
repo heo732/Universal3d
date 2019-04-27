@@ -1,36 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using U3DSpace;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.NodePrimitives;
 using U3DSpace.Primitives.TexturePrimitives;
 
-namespace Rubik_s_Cube
+namespace U3DSpace.Samples
 {
-    public class Program
+    public static class Rubik_s_Cube
     {
-        #region Methods
+        #region PublicMethods
 
-        public static void Main(string[] args)
+        public static U3DDocument GetDocument()
         {
             var doc = new U3DDocument();
-
             AddTextures(doc);
             AddMaterials(doc);
             AddShaders(doc);
             AddMeshes(doc);
             AddNodes(doc);
+            return doc;
+        }
 
+        #endregion PublicMethods
+
+        #region PrivateMethods
+
+        private static void Main(string[] args)
+        {
+            var doc = GetDocument();
             doc.SaveToFile("result.u3d");
-            doc.SaveToFilePDF("result.pdf");
-
+            doc.SaveToPdfFile("result.pdf");
             System.Console.WriteLine("Successfully!");
         }
 
-        public static byte[] GetImageFromResources(string imageName)
+        private static byte[] GetImageFromResources(string imageName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             using (Stream stream = assembly.GetManifestResourceStream(string.Format("Rubik_s_Cube.Images.{0}", imageName)))
@@ -41,7 +47,7 @@ namespace Rubik_s_Cube
             }
         }
 
-        public static void AddTextures(U3DDocument doc)
+        private static void AddTextures(U3DDocument doc)
         {
             doc.TryAddTexture(new Texture("front_texture", ImageFormat.PNG, GetImageFromResources("front.png")));
             doc.TryAddTexture(new Texture("back_texture", ImageFormat.PNG, GetImageFromResources("back.png")));
@@ -51,12 +57,12 @@ namespace Rubik_s_Cube
             doc.TryAddTexture(new Texture("bottom_texture", ImageFormat.PNG, GetImageFromResources("bottom.png")));
         }
 
-        public static void AddMaterials(U3DDocument doc)
+        private static void AddMaterials(U3DDocument doc)
         {
             doc.TryAddMaterial(new Material("default_material", new Color(0.1), new Color(1.0), new Color(0.5), new Color(0.0), 1.0f, 1.0f));
         }
 
-        public static void AddShaders(U3DDocument doc)
+        private static void AddShaders(U3DDocument doc)
         {
             doc.TryAddShader(new Shader("front_shader", "default_material", "front_texture"));
             doc.TryAddShader(new Shader("back_shader", "default_material", "back_texture"));
@@ -66,7 +72,7 @@ namespace Rubik_s_Cube
             doc.TryAddShader(new Shader("bottom_shader", "default_material", "bottom_texture"));
         }
 
-        public static void AddMeshes(U3DDocument doc)
+        private static void AddMeshes(U3DDocument doc)
         {
             var triangles = new List<Triangle> { new Triangle(new Corner(0, 0, 0), new Corner(1, 0, 1), new Corner(2, 0, 2)), new Triangle(new Corner(2, 0, 2), new Corner(3, 0, 3), new Corner(0, 0, 0)) };
             var textureCoordinates = new List<Vector2> { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
@@ -114,7 +120,7 @@ namespace Rubik_s_Cube
                 ));
         }
 
-        public static void AddNodes(U3DDocument doc)
+        private static void AddNodes(U3DDocument doc)
         {
             string rootNodeName = "Rubik's Cube";
             doc.TryAddNode(new Node(rootNodeName, null, null, Matrix4.GetIdentityMatrix()));
@@ -126,6 +132,6 @@ namespace Rubik_s_Cube
             doc.TryAddNode(new Node("bottom", "bottom_mesh", rootNodeName, Matrix4.GetIdentityMatrix()));
         }
 
-        #endregion Methods
+        #endregion PrivateMethods
     }
 }
