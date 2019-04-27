@@ -7,7 +7,7 @@ namespace U3DSpace.IO
     {
         #region PublicMethods
 
-        public static void Read(Stream stream, U3DDocument doc)
+        public static void Read(U3DDocument doc, Stream stream)
         {
             using (var reader = new StreamReader(stream))
             {
