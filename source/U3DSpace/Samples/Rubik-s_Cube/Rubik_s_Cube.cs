@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using U3DSpace;
 using U3DSpace.Primitives;
 using U3DSpace.Primitives.MaterialPrimitives;
 using U3DSpace.Primitives.MeshPrimitives;
 using U3DSpace.Primitives.NodePrimitives;
 using U3DSpace.Primitives.TexturePrimitives;
 
-namespace Rubik_s_Cube
+namespace U3DSpace.Samples
 {
-    public static class Document
+    public static class Rubik_s_Cube
     {
         #region PublicMethods
 
@@ -23,26 +22,6 @@ namespace Rubik_s_Cube
             AddMeshes(doc);
             AddNodes(doc);
             return doc;
-        }
-
-        public static void Save(Stream stream)
-        {
-            GetDocument().Save(stream);
-        }
-
-        public static void SaveToFile(string filePath)
-        {
-            GetDocument().SaveToFile(filePath);
-        }
-
-        public static void SavePDF(Stream stream)
-        {
-            GetDocument().SavePdf(stream);
-        }
-
-        public static void SaveToPdfFile(string filePath)
-        {
-            GetDocument().SaveToPdfFile(filePath);
         }
 
         #endregion PublicMethods
