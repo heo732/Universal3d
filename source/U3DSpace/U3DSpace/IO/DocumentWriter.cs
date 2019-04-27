@@ -24,11 +24,11 @@ namespace U3DSpace.IO
             string u3dTempFileName = Path.GetTempFileName();
             Save(u3dDoc, File.Create(u3dTempFileName));
 
-            Pdf3DAnnotation annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName);
+            var annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName);
 
             annotation.Activation = new Pdf3DActivation();
             annotation.Activation.ActivationMode = Pdf3DActivationMode.PageOpen;
-            Pdf3DView View = new Pdf3DView();
+            var View = new Pdf3DView();
             View.Background = new Pdf3DBackground(new PdfRGBColor(System.Drawing.Color.White));
             View.ExternalName = "Default";
             View.InternalName = "Default";
