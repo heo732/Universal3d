@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Andrii Buzhak</Authors>
+    <Copyright>Copyright (c) 2024 Andrii Buzhak</Copyright>
+    <Version>0.5.0</Version>
+    <FileVersion>$(Version)</FileVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <LangVersion>latest</LangVersion>
+    <NetStandardTarget>netstandard2.0</NetStandardTarget>
+    <NetTarget>net8.0</NetTarget>
+    <PackageTags>U3D; Universal 3D; Universal-3D; ECMA-363</PackageTags>
+    <RepositoryUrl>https://github.com/heo732/Universal3d</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <MsTestSdkPackageVersion>17.8.0</MsTestSdkPackageVersion>
+    <XUnitPackageVersion>2.6.6</XUnitPackageVersion>
+    <XUnitRunnerVsPackageVersion>2.5.6</XUnitRunnerVsPackageVersion>
+  </PropertyGroup>
+</Project>

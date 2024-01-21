@@ -1,14 +1,13 @@
-﻿namespace U3DSpace
+﻿namespace Universal3d.Core;
+
+public class Merger
 {
-    public class Merger
+    #region Methods
+
+    public static U3DDocument Merge(U3DDocument doc1, U3DDocument doc2)
     {
-        #region Methods
-
-        public static U3DDocument Merge(U3DDocument doc1, U3DDocument doc2)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion Methods
+        throw new System.NotImplementedException();
     }
+
+    #endregion Methods
 }

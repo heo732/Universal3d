@@ -1,39 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.4.1</Version>
-    <Authors>Andrii Buzhak</Authors>
-    <Description>Writer/Reader for Universal 3D format (ECMA-363).</Description>
-    <PackageTags>U3D; Universal 3D; ECMA-363</PackageTags>
-    <PackageReleaseNotes>Saving and Reading with uncompressed way only.</PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/heo732/U3DSpace</RepositoryUrl>
-    <AssemblyVersion>0.4.1.0</AssemblyVersion>
-    <FileVersion>0.4.1.0</FileVersion>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <TargetFramework>$(NetStandardTarget)</TargetFramework>
+    <Description>Library to load or make, modify and save files of Universal 3D format (ECMA-363). It exposes content of a U3D file into a C# class structure.</Description>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Samples\Textured_Rubik_s_Cube\Images\back.png" />
-    <None Remove="Samples\Textured_Rubik_s_Cube\Images\bottom.png" />
-    <None Remove="Samples\Textured_Rubik_s_Cube\Images\front.png" />
-    <None Remove="Samples\Textured_Rubik_s_Cube\Images\left.png" />
-    <None Remove="Samples\Textured_Rubik_s_Cube\Images\right.png" />
-    <None Remove="Samples\Textured_Rubik_s_Cube\Images\top.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\back.png" />
-    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\bottom.png" />
-    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\front.png" />
-    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\left.png" />
-    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\right.png" />
-    <EmbeddedResource Include="Samples\Textured_Rubik_s_Cube\Images\top.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FreeSpire.PDF" Version="5.1.0" />
-    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
-  </ItemGroup>
 
 </Project>
