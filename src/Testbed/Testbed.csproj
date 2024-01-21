@@ -4,7 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>$(NetTarget)-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>..\Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="..\Resources\*" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
