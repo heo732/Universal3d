@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using Universal3d.Samples;
 using Universal3d.Pdf;
+using Spire.Pdf;
 
 namespace Testbed.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -26,7 +27,8 @@ public partial class MainViewModel : ObservableObject
 
         if (Path.GetExtension(dialog.FileName).Equals(".pdf", StringComparison.InvariantCultureIgnoreCase))
         {
-            doc.ToPdf().SaveToFile(dialog.FileName);
+            using var pdfDoc = doc.ToPdf();
+            pdfDoc.SaveToFile(dialog.FileName, FileFormat.PDF);
             return;
         }
 

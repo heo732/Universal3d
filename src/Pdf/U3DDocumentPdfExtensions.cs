@@ -15,8 +15,8 @@ public static class U3DDocumentPdfExtensions
         PdfPageBase page = pdfDoc.Pages.Add(PdfPageSize.A4, new PdfMargins(30.0f), PdfPageRotateAngle.RotateAngle0, PdfPageOrientation.Landscape);
         var rectangle = new System.Drawing.Rectangle(0, 0, (int)(page.Size.Width - 60.0f), (int)(page.Size.Height - 60.0f));
 
-        string u3dTempFileName = Path.GetTempFileName();
-        u3dDoc.Save(File.Create(u3dTempFileName));
+        string u3dTempFileName = Path.GetTempFileName() + ".u3d";
+        u3dDoc.Save(u3dTempFileName);
 
         var annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName)
         {
