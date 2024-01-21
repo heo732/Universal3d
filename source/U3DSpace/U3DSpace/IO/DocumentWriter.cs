@@ -24,19 +24,22 @@ namespace U3DSpace.IO
             string u3dTempFileName = Path.GetTempFileName();
             Save(u3dDoc, File.Create(u3dTempFileName));
 
-            Pdf3DAnnotation annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName);
-
-            annotation.Activation = new Pdf3DActivation();
+            var annotation = new Pdf3DAnnotation(rectangle, u3dTempFileName)
+            {
+                Activation = new Pdf3DActivation()
+            };
             annotation.Activation.ActivationMode = Pdf3DActivationMode.PageOpen;
-            Pdf3DView View = new Pdf3DView();
-            View.Background = new Pdf3DBackground(new PdfRGBColor(System.Drawing.Color.White));
-            View.ExternalName = "Default";
-            View.InternalName = "Default";
-            View.ViewNodeName = "Default";
-            View.RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid);
-            View.LightingScheme = new Pdf3DLighting();
-            View.LightingScheme.Style = Pdf3DLightingStyle.Hard;
-            annotation.Views.Add(View);
+            var view = new Pdf3DView
+            {
+                Background = new Pdf3DBackground(new PdfRGBColor(System.Drawing.Color.White)),
+                ExternalName = "Default",
+                InternalName = "Default",
+                ViewNodeName = "Default",
+                RenderMode = new Pdf3DRendermode(Pdf3DRenderStyle.Solid),
+                LightingScheme = new Pdf3DLighting()
+            };
+            view.LightingScheme.Style = Pdf3DLightingStyle.Hard;
+            annotation.Views.Add(view);
             page.AnnotationsWidget.Add(annotation);
 
             pdfDoc.SaveToStream(pdfDocStream, FileFormat.PDF);
