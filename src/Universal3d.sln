@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "U3DSpace", "U3DSpace\U3DSpace.csproj", "{461C6154-5FD2-4A8D-A310-5290065CFC38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universal3d.Core", "Core\Universal3d.Core.csproj", "{461C6154-5FD2-4A8D-A310-5290065CFC38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
