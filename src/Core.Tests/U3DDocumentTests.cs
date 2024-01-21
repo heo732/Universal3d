@@ -10,9 +10,9 @@ public class U3DDocumentTests
     {
         // Arrange
         var doc = U3DSamples.TexturedRubiksCube;
+        using var stream = new MemoryStream();
 
         // Act
-        using var stream = new MemoryStream();
         doc.Save(stream, true);
 
         // Assert

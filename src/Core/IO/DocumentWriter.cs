@@ -11,7 +11,7 @@ internal static class DocumentWriter
 {
     #region PublicMethods
 
-    public static void Save(U3DDocument doc, Stream stream, bool leaveOpen = false)
+    public static void Save(U3DDocument doc, Stream stream, bool leaveOpen = true)
     {
         using var writer = new BinaryWriter(stream, doc.TextEncoding, leaveOpen);
         writer.Write(GetHeaderBlock(doc).ToArray());

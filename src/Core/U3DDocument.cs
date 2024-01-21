@@ -120,7 +120,7 @@ public class U3DDocument
         return true;
     }
 
-    public void Save(Stream stream, bool leaveOpen = false) => DocumentWriter.Save(this, stream, leaveOpen);
+    public void Save(Stream stream, bool leaveOpen = true) => DocumentWriter.Save(this, stream, leaveOpen);
 
     public void Save(string filePath)
     {
@@ -128,7 +128,7 @@ public class U3DDocument
         Save(stream);
     }
 
-    public void Read(Stream stream, bool leaveOpen = false) => DocumentReader.Read(this, stream, leaveOpen);
+    public void Read(Stream stream, bool leaveOpen = true) => DocumentReader.Read(this, stream, leaveOpen);
 
     public void Read(string filePath)
     {
