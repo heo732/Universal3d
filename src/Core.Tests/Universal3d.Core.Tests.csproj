@@ -10,4 +10,8 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitRunnerVsPackageVersion)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Samples\Universal3d.Samples.csproj" />
+  </ItemGroup>
+
 </Project>

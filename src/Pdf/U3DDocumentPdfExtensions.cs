@@ -36,7 +36,6 @@ public static class U3DDocumentPdfExtensions
         annotation.Views.Add(view);
         page.AnnotationsWidget.Add(annotation);
                 
-        File.Delete(u3dTempFileName);
         return pdfDoc;
     }
 
