@@ -1,7 +1,6 @@
 ﻿using System;
 
 namespace Universal3d.Core.Primitives.TexturePrimitives;
-
 public class Texture
 {
     #region Constructors

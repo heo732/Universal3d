@@ -1,7 +1,6 @@
 ﻿using System;
 
 namespace Universal3d.Core.Primitives.MaterialPrimitives;
-
 public class Color
 {
     #region Constructors
@@ -72,20 +71,15 @@ public class Color
 
     public override bool Equals(object obj)
     {
-        if (obj is Color color)
-        {
-            if ((Math.Abs(R - color.R) < 0.00005) &&
-                (Math.Abs(G - color.G) < 0.00005) &&
-                (Math.Abs(B - color.B) < 0.00005))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return false;
+        var tol = 5e-5;
+
+        if (obj is not Color color)
+            return false;
+
+        return
+            (Math.Abs(R - color.R) < tol) &&
+            (Math.Abs(G - color.G) < tol) &&
+            (Math.Abs(B - color.B) < tol);
     }
 
     public override int GetHashCode()

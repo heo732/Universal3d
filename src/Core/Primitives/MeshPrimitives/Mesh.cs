@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 namespace Universal3d.Core.Primitives.MeshPrimitives;
-
 public class Mesh
 {
     #region Constructors
@@ -10,10 +9,10 @@ public class Mesh
     {
         Name = string.Empty;
         Shader = string.Empty;
-        Positions = new List<Vector3>();
-        Normals = new List<Vector3>();
-        TextureCoordinates = new List<Vector2>();
-        Triangles = new List<Triangle>();
+        Positions = [];
+        Normals = [];
+        TextureCoordinates = [];
+        Triangles = [];
     }
 
     public Mesh(string name, string shader, List<Vector3> positions, List<Vector3> normals, List<Vector2> textureCoordinates, List<Triangle> triangles)

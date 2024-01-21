@@ -1,10 +1,9 @@
 ﻿namespace Universal3d.Core;
-
-public class Merger
+public static class Merger
 {
     #region Methods
 
-    public static U3DDocument Merge(U3DDocument doc1, U3DDocument doc2)
+    public static U3DDocument Merge(this U3DDocument doc1, U3DDocument doc2)
     {
         throw new System.NotImplementedException();
     }

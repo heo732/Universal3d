@@ -1,7 +1,6 @@
 ﻿namespace Universal3d.Core.Primitives.NodePrimitives;
-
 /// <summary>
-/// Represents a model node if it has mesh and group node otherwise
+/// Represents a model node if it has a mesh, otherwise - a group node.
 /// </summary>
 public class Node
 {

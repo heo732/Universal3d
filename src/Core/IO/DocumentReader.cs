@@ -2,7 +2,6 @@
 using Universal3d.Core.IO.BlockIO;
 
 namespace Universal3d.Core.IO;
-
 internal class DocumentReader
 {
     #region PublicMethods

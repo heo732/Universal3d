@@ -1,5 +1,4 @@
 ﻿namespace Universal3d.Core.Primitives;
-
 public class Shader
 {
     #region Constructors

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 
 namespace Universal3d.Core.Primitives.MeshPrimitives;
-
 public class Triangle : IEnumerable, IEnumerator
 {
     #region Fields

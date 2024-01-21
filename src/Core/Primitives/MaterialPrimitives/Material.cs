@@ -1,7 +1,6 @@
 ﻿using System;
 
 namespace Universal3d.Core.Primitives.MaterialPrimitives;
-
 public class Material
 {
     #region Constructors

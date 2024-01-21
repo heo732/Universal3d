@@ -7,7 +7,6 @@ using Universal3d.Core.Primitives.NodePrimitives;
 using Universal3d.Core.Primitives.TexturePrimitives;
 
 namespace Universal3d.Core.IO;
-
 internal static class DocumentWriter
 {
     #region PublicMethods

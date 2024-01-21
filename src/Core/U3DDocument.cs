@@ -9,18 +9,17 @@ using Universal3d.Core.Primitives.NodePrimitives;
 using Universal3d.Core.Primitives.TexturePrimitives;
 
 namespace Universal3d.Core;
-
 public class U3DDocument
 {
     #region Constructors
 
     public U3DDocument()
     {
-        Shaders = new Dictionary<string, Shader>();
-        Materials = new Dictionary<string, Material>();
-        Meshes = new Dictionary<string, Mesh>();
-        Nodes = new Dictionary<string, Node>();
-        Textures = new Dictionary<string, Texture>();
+        Shaders = [];
+        Materials = [];
+        Meshes = [];
+        Nodes = [];
+        Textures = [];
         TextEncoding = Encoding.UTF8;
     }
 

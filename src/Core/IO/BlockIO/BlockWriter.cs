@@ -3,27 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Universal3d.Core.IO.BlockIO;
-
 /// <summary>
 /// Represents byte writer for the block.
 /// Supports only uncompressed values.
 /// </summary>
-public class BlockWriter
+internal class BlockWriter
 {
     #region Fields
 
-    private Block _block;
+    private readonly Block _block = new();
 
     #endregion Fields
-
-    #region Constructors
-
-    public BlockWriter()
-    {
-        _block = new Block();
-    }
-
-    #endregion Constructors
 
     #region Methods
 

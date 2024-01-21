@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 
 namespace Universal3d.Core.IO.BlockIO;
-
 /// <summary>Represents data block in bytes</summary>
-public class Block
+internal class Block
 {
     #region Constructors
 
     public Block()
     {
         Type = BlockType.Invalid;
-        Data = new List<byte>();
-        MetaData = new List<byte>();
-        DataAligning = new List<byte>();
-        MetaDataAligning = new List<byte>();
+        Data = [];
+        MetaData = [];
+        DataAligning = [];
+        MetaDataAligning = [];
     }
 
     public Block(Block block)
@@ -22,10 +21,10 @@ public class Block
         if (block == null)
         {
             Type = BlockType.Invalid;
-            Data = new List<byte>();
-            MetaData = new List<byte>();
-            DataAligning = new List<byte>();
-            MetaDataAligning = new List<byte>();
+            Data = [];
+            MetaData = [];
+            DataAligning = [];
+            MetaDataAligning = [];
         }
         else
         {
@@ -87,13 +86,13 @@ public class Block
         result.AddRange(DataAligning);
         result.AddRange(MetaData);
         result.AddRange(MetaDataAligning);
-        return result.ToArray();
+        return [.. result];
     }
 
     private void AlignData()
     {
         byte aligningSize = (byte)(4 - (Data.Count % 4));
-        DataAligning = new List<byte>();
+        DataAligning = [];
         if (aligningSize != 4)
         {
             for (byte i = 0; i < aligningSize; i++)
@@ -106,7 +105,7 @@ public class Block
     private void AlignMetaData()
     {
         byte aligningSize = (byte)(4 - (MetaData.Count % 4));
-        MetaDataAligning = new List<byte>();
+        MetaDataAligning = [];
         if (aligningSize != 4)
         {
             for (byte i = 0; i < aligningSize; i++)

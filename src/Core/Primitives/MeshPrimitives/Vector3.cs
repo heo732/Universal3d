@@ -1,7 +1,6 @@
 ﻿using System;
 
 namespace Universal3d.Core.Primitives.MeshPrimitives;
-
 public class Vector3
 {
     #region Constructors

@@ -2,27 +2,17 @@
 using System.Text;
 
 namespace Universal3d.Core.IO.BlockIO;
-
 /// <summary>
 /// Represents byte reader for the block.
 /// Supports only uncompressed values.
 /// </summary>
-public class BlockReader
+internal class BlockReader(Block block)
 {
     #region Fields
 
-    private Block _block;
+    private readonly Block _block = new(block);
 
     #endregion Fields
-
-    #region Constructors
-
-    public BlockReader(Block block)
-    {
-        _block = new Block(block);
-    }
-
-    #endregion Constructors
 
     #region Properties
 
@@ -71,7 +61,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToSingle(_block.Data.GetRange(0, 4).ToArray(), 0);
+            value = BitConverter.ToSingle([.. _block.Data.GetRange(0, 4)], 0);
             _block.Data.RemoveRange(0, 4);
             return true;
         }
@@ -86,7 +76,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToDouble(_block.Data.GetRange(0, 8).ToArray(), 0);
+            value = BitConverter.ToDouble([.. _block.Data.GetRange(0, 8)], 0);
             _block.Data.RemoveRange(0, 8);
             return true;
         }
@@ -101,7 +91,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToInt16(_block.Data.GetRange(0, 2).ToArray(), 0);
+            value = BitConverter.ToInt16([.. _block.Data.GetRange(0, 2)], 0);
             _block.Data.RemoveRange(0, 2);
             return true;
         }
@@ -116,7 +106,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToInt32(_block.Data.GetRange(0, 4).ToArray(), 0);
+            value = BitConverter.ToInt32([.. _block.Data.GetRange(0, 4)], 0);
             _block.Data.RemoveRange(0, 4);
             return true;
         }
@@ -131,7 +121,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToSingle(_block.MetaData.GetRange(0, 4).ToArray(), 0);
+            value = BitConverter.ToSingle([.. _block.MetaData.GetRange(0, 4)], 0);
             _block.MetaData.RemoveRange(0, 4);
             return true;
         }
@@ -146,7 +136,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToDouble(_block.MetaData.GetRange(0, 8).ToArray(), 0);
+            value = BitConverter.ToDouble([.. _block.MetaData.GetRange(0, 8)], 0);
             _block.MetaData.RemoveRange(0, 8);
             return true;
         }
@@ -161,7 +151,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToInt16(_block.MetaData.GetRange(0, 2).ToArray(), 0);
+            value = BitConverter.ToInt16([.. _block.MetaData.GetRange(0, 2)], 0);
             _block.MetaData.RemoveRange(0, 2);
             return true;
         }
@@ -176,7 +166,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToInt32(_block.MetaData.GetRange(0, 4).ToArray(), 0);
+            value = BitConverter.ToInt32([.. _block.MetaData.GetRange(0, 4)], 0);
             _block.MetaData.RemoveRange(0, 4);
             return true;
         }
@@ -190,7 +180,7 @@ public class BlockReader
             {
                 if (MetaDataSise >= length)
                 {
-                    value = encoding.GetString(_block.MetaData.GetRange(0, length).ToArray());
+                    value = encoding.GetString([.. _block.MetaData.GetRange(0, length)]);
                     _block.MetaData.RemoveRange(0, length);
                     return true;
                 }
@@ -222,7 +212,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToUInt16(_block.MetaData.GetRange(0, 2).ToArray(), 0);
+            value = BitConverter.ToUInt16([.. _block.MetaData.GetRange(0, 2)], 0);
             _block.MetaData.RemoveRange(0, 2);
             return true;
         }
@@ -237,7 +227,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToUInt32(_block.MetaData.GetRange(0, 4).ToArray(), 0);
+            value = BitConverter.ToUInt32([.. _block.MetaData.GetRange(0, 4)], 0);
             _block.MetaData.RemoveRange(0, 4);
             return true;
         }
@@ -252,7 +242,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToUInt64(_block.MetaData.GetRange(0, 8).ToArray(), 0);
+            value = BitConverter.ToUInt64([.. _block.MetaData.GetRange(0, 8)], 0);
             _block.MetaData.RemoveRange(0, 8);
             return true;
         }
@@ -281,7 +271,7 @@ public class BlockReader
             {
                 if (DataSise >= length)
                 {
-                    value = encoding.GetString(_block.Data.GetRange(0, length).ToArray());
+                    value = encoding.GetString([.. _block.Data.GetRange(0, length)]);
                     _block.Data.RemoveRange(0, length);
                     return true;
                 }
@@ -313,7 +303,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToUInt16(_block.Data.GetRange(0, 2).ToArray(), 0);
+            value = BitConverter.ToUInt16([.. _block.Data.GetRange(0, 2)], 0);
             _block.Data.RemoveRange(0, 2);
             return true;
         }
@@ -328,7 +318,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToUInt32(_block.Data.GetRange(0, 4).ToArray(), 0);
+            value = BitConverter.ToUInt32([.. _block.Data.GetRange(0, 4)], 0);
             _block.Data.RemoveRange(0, 4);
             return true;
         }
@@ -343,7 +333,7 @@ public class BlockReader
         }
         else
         {
-            value = BitConverter.ToUInt64(_block.Data.GetRange(0, 8).ToArray(), 0);
+            value = BitConverter.ToUInt64([.. _block.Data.GetRange(0, 8)], 0);
             _block.Data.RemoveRange(0, 8);
             return true;
         }
