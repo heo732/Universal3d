@@ -6,8 +6,9 @@ internal class DocumentReader
 {
     #region PublicMethods
 
-    public static void Read(U3DDocument doc, Stream stream, bool leaveOpen = true)
+    public static U3dDocument Read(Stream stream, bool leaveOpen)
     {
+        var doc = new U3dDocument();
         using var reader = new StreamReader(stream, doc.TextEncoding, false, 1024, leaveOpen);
         throw new System.NotImplementedException();
     }

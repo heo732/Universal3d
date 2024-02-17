@@ -11,7 +11,7 @@ internal static class DocumentWriter
 {
     #region PublicMethods
 
-    public static void Save(U3DDocument doc, Stream stream, bool leaveOpen = true)
+    public static void Save(U3dDocument doc, Stream stream, bool leaveOpen = true)
     {
         using var writer = new BinaryWriter(stream, doc.TextEncoding, leaveOpen);
         writer.Write(GetHeaderBlock(doc).ToArray());
@@ -28,7 +28,7 @@ internal static class DocumentWriter
 
     #region PrivateMethods
 
-    private static void WriteNodes(BinaryWriter writer, U3DDocument doc)
+    private static void WriteNodes(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Node node in doc.Nodes.Values)
         {
@@ -43,7 +43,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static void WriteDeclarationsOfMeshes(BinaryWriter writer, U3DDocument doc)
+    private static void WriteDeclarationsOfMeshes(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Mesh mesh in doc.Meshes.Values)
         {
@@ -51,7 +51,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static void WriteContinuationsOfMeshes(BinaryWriter writer, U3DDocument doc)
+    private static void WriteContinuationsOfMeshes(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Mesh mesh in doc.Meshes.Values)
         {
@@ -59,7 +59,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static void WriteShaders(BinaryWriter writer, U3DDocument doc)
+    private static void WriteShaders(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Shader shader in doc.Shaders.Values)
         {
@@ -67,7 +67,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static void WriteMaterials(BinaryWriter writer, U3DDocument doc)
+    private static void WriteMaterials(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Material material in doc.Materials.Values)
         {
@@ -75,7 +75,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static void WriteDeclarationsOfTextures(BinaryWriter writer, U3DDocument doc)
+    private static void WriteDeclarationsOfTextures(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Texture texture in doc.Textures.Values)
         {
@@ -83,7 +83,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static void WriteContinuationsOfTextures(BinaryWriter writer, U3DDocument doc)
+    private static void WriteContinuationsOfTextures(BinaryWriter writer, U3dDocument doc)
     {
         foreach (Texture texture in doc.Textures.Values)
         {
@@ -91,7 +91,7 @@ internal static class DocumentWriter
         }
     }
 
-    private static Block GetHeaderBlock(U3DDocument doc)
+    private static Block GetHeaderBlock(U3dDocument doc)
     {
         var w = new BlockWriter();
         w.WriteI32(0x00000000); // version
@@ -154,7 +154,7 @@ internal static class DocumentWriter
         return w.GetBlock(BlockType.ShadingModifier);
     }
 
-    private static Block GetNodeModifierChain(Node node, U3DDocument doc)
+    private static Block GetNodeModifierChain(Node node, U3dDocument doc)
     {
         var w = new BlockWriter();
         w.WriteString(node.Name); // modifier chain name

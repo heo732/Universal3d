@@ -9,11 +9,11 @@ using Universal3d.Core.Primitives.NodePrimitives;
 using Universal3d.Core.Primitives.TexturePrimitives;
 
 namespace Universal3d.Core;
-public class U3DDocument
+public class U3dDocument
 {
     #region Constructors
 
-    public U3DDocument()
+    public U3dDocument()
     {
         Shaders = [];
         Materials = [];
@@ -128,12 +128,12 @@ public class U3DDocument
         Save(stream);
     }
 
-    public void Read(Stream stream, bool leaveOpen = true) => DocumentReader.Read(this, stream, leaveOpen);
+    public static U3dDocument Load(Stream stream, bool leaveOpen = true) => DocumentReader.Read(stream, leaveOpen);
 
-    public void Read(string filePath)
+    public static U3dDocument Load(string filePath)
     {
         using var stream = new FileStream(filePath, FileMode.Open);
-        Read(stream);
+        return Load(stream, false);
     }
 
     #endregion Methods

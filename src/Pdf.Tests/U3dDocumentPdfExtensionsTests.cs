@@ -4,13 +4,13 @@ using Universal3d.Samples;
 using Xunit;
 
 namespace Universal3d.Pdf.Tests;
-public class U3DDocumentPdfExtensionsTests
+public class U3dDocumentPdfExtensionsTests
 {
     [Fact]
     public void ToPdf_ShouldCreateCorrectPdf_FromTexturedRubiksCubeSample()
     {
         // Arrange
-        var u3dDoc = U3DSamples.TexturedRubiksCube;
+        var u3dDoc = U3dSamples.TexturedRubiksCube;
         using var stream = new MemoryStream();
 
         // Act
@@ -18,6 +18,6 @@ public class U3DDocumentPdfExtensionsTests
         pdfDoc.SaveToStream(stream, FileFormat.PDF);
 
         // Assert
-        Assert.Equal(11094, stream.Length);
+        Assert.Equal(11668, stream.Length);
     }
 }

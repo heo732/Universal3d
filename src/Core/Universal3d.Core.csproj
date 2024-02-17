@@ -2,13 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>$(NetStandardTarget)</TargetFramework>
-    <Description>Library to load or make, modify and save files of Universal 3D format (ECMA-363). It exposes content of a U3D file into a C# class structure.</Description>
+    <Description>Library to read and write files of Universal 3D format (ECMA-363).</Description>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
   
   <ItemGroup>
     <None Include="..\Resources\icon.png" Pack="true" PackagePath="\" />
-    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>

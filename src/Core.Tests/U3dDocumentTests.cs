@@ -3,13 +3,13 @@ using Universal3d.Samples;
 using Xunit;
 
 namespace Universal3d.Core.Tests;
-public class U3DDocumentTests
+public class U3dDocumentTests
 {
     [Fact]
     public void Save_ShouldProperlySave_TexturedRubiksCubeSample()
     {
         // Arrange
-        var doc = U3DSamples.TexturedRubiksCube;
+        var doc = U3dSamples.TexturedRubiksCube;
         using var stream = new MemoryStream();
 
         // Act

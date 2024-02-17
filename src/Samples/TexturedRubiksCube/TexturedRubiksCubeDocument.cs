@@ -13,9 +13,9 @@ internal static class TexturedRubiksCubeDocument
 {
     #region PublicMethods
 
-    public static U3DDocument Build()
+    public static U3dDocument Build()
     {
-        var doc = new U3DDocument();
+        var doc = new U3dDocument();
         AddTextures(doc);
         AddMaterials(doc);
         AddShaders(doc);
@@ -37,7 +37,7 @@ internal static class TexturedRubiksCubeDocument
         return data;
     }
 
-    private static void AddTextures(U3DDocument doc)
+    private static void AddTextures(U3dDocument doc)
     {
         doc.TryAddTexture(new Texture("front_texture", ImageFormat.PNG, GetImageFromResources("front.png")));
         doc.TryAddTexture(new Texture("back_texture", ImageFormat.PNG, GetImageFromResources("back.png")));
@@ -47,12 +47,12 @@ internal static class TexturedRubiksCubeDocument
         doc.TryAddTexture(new Texture("bottom_texture", ImageFormat.PNG, GetImageFromResources("bottom.png")));
     }
 
-    private static void AddMaterials(U3DDocument doc)
+    private static void AddMaterials(U3dDocument doc)
     {
         doc.TryAddMaterial(new Material("default_material", new Color(0.1), new Color(1.0), new Color(0.5), new Color(0.0), 1.0f, 1.0f));
     }
 
-    private static void AddShaders(U3DDocument doc)
+    private static void AddShaders(U3dDocument doc)
     {
         doc.TryAddShader(new Shader("front_shader", "default_material", "front_texture"));
         doc.TryAddShader(new Shader("back_shader", "default_material", "back_texture"));
@@ -62,7 +62,7 @@ internal static class TexturedRubiksCubeDocument
         doc.TryAddShader(new Shader("bottom_shader", "default_material", "bottom_texture"));
     }
 
-    private static void AddMeshes(U3DDocument doc)
+    private static void AddMeshes(U3dDocument doc)
     {
         var triangles = new List<Triangle> { new(new Corner(0, 0, 0), new Corner(1, 0, 1), new Corner(2, 0, 2)), new(new Corner(2, 0, 2), new Corner(3, 0, 3), new Corner(0, 0, 0)) };
         var textureCoordinates = new List<Vector2> { new(0, 0), new(0, 1), new(1, 1), new(1, 0) };
@@ -110,7 +110,7 @@ internal static class TexturedRubiksCubeDocument
             ));
     }
 
-    private static void AddNodes(U3DDocument doc)
+    private static void AddNodes(U3dDocument doc)
     {
         string rootNodeName = "Rubik's Cube";
         doc.TryAddNode(new Node(rootNodeName, null, null, Matrix4.GetIdentityMatrix()));
