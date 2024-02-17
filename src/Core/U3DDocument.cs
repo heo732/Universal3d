@@ -117,12 +117,12 @@ public class U3dDocument
     }
 
     /// <summary>
-    /// Supports U3D of 1st Edition and uncompressed values only.
+    /// WIP: Only header handles for the moment.
     /// </summary>
     public static U3dDocument Load(Stream stream, bool leaveOpen = true) => DocumentReader.Read(stream, leaveOpen);
 
     /// <summary>
-    /// Supports U3D of 1st Edition and uncompressed values only.
+    /// WIP: Only header handles for the moment.
     /// </summary>
     public static U3dDocument Load(string filePath)
     {
