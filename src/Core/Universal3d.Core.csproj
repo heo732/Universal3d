@@ -5,9 +5,5 @@
     <Description>Library to read and write files of Universal 3D format (ECMA-363).</Description>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <None Include="..\Resources\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 <Project>
+
   <PropertyGroup>
     <Authors>Andrii Buzhak</Authors>
     <Copyright>Copyright (c) 2024 Andrii Buzhak</Copyright>
@@ -8,13 +9,21 @@
     <LangVersion>latest</LangVersion>
     <NetStandardTarget>netstandard2.0</NetStandardTarget>
     <NetTarget>net8.0</NetTarget>
+    <IsPackable>false</IsPackable>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>U3D; Universal 3D; Universal-3D; ECMA-363</PackageTags>
+    <PackageTags>U3D;Universal3D;Universal-3D;ECMA-363</PackageTags>
     <RepositoryUrl>https://github.com/heo732/Universal3d</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <IsPackable>false</IsPackable>
-    <MsTestSdkPackageVersion>17.8.0</MsTestSdkPackageVersion>
-    <XUnitPackageVersion>2.6.6</XUnitPackageVersion>
-    <XUnitRunnerVsPackageVersion>2.5.6</XUnitRunnerVsPackageVersion>
   </PropertyGroup>
+  
+  <ItemGroup Condition="$(IsPackable)">
+    <None Include="..\Resources\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="$(MSBuildProjectName.Contains('Tests'))">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
+  </ItemGroup>
+
 </Project>

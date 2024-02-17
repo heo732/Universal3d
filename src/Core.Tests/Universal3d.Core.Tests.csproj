@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MsTestSdkPackageVersion)" />
-    <PackageReference Include="xunit" Version="$(XUnitPackageVersion)" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitRunnerVsPackageVersion)" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Samples\Universal3d.Samples.csproj" />
   </ItemGroup>
 
