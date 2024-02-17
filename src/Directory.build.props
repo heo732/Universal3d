@@ -12,7 +12,6 @@
     <PackageTags>U3D; Universal 3D; Universal-3D; ECMA-363</PackageTags>
     <RepositoryUrl>https://github.com/heo732/Universal3d</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPackable>false</IsPackable>
     <MsTestSdkPackageVersion>17.8.0</MsTestSdkPackageVersion>
     <XUnitPackageVersion>2.6.6</XUnitPackageVersion>
