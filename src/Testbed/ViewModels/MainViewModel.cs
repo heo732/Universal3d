@@ -6,6 +6,8 @@ using System.IO;
 using Universal3d.Samples;
 using Universal3d.Pdf;
 using Spire.Pdf;
+using System.Reflection;
+using Universal3d.Core;
 
 namespace Testbed.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -95,5 +97,33 @@ public partial class MainViewModel : ObservableObject
             var u3dPath = saveDialog.FileName;
             File.WriteAllBytes(u3dPath, u3dStream.ToArray());
         }
+    }
+
+    [RelayCommand]
+    private void ResaveU3d()
+    {
+        var openDialog = new OpenFileDialog()
+        {
+            Filter = "U3D (*.u3d)|*.u3d",
+        };
+
+        if (!(openDialog.ShowDialog() ?? false))
+            return;
+
+        var u3dPathIn = openDialog.FileName;
+
+        var saveDialog = new SaveFileDialog()
+        {
+            Filter = "U3D (*.u3d)|*.u3d",
+            FileName = $"{Path.GetFileNameWithoutExtension(u3dPathIn)}_resaved.u3d",
+            AddExtension = true,
+        };
+
+        if (!(saveDialog.ShowDialog() ?? false))
+            return;
+
+        var u3dPathOut = saveDialog.FileName;
+        var doc = U3dDocument.Load(u3dPathIn);
+        doc.Save(u3dPathOut);
     }
 }

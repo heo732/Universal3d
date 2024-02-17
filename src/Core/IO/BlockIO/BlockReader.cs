@@ -1,22 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using Universal3d.Core.Enums;
 
 namespace Universal3d.Core.IO.BlockIO;
 /// <summary>
 /// Represents byte reader for the block.
 /// Supports only uncompressed values.
 /// </summary>
-internal class BlockReader(Block block)
+internal class BlockReader
 {
     #region Fields
 
-    private readonly Block _block = new(block);
+    private readonly Block _block;
 
     #endregion Fields
 
     #region Properties
 
-    public int DataSise
+    public Block Block => _block;
+
+    public int DataSize
     {
         get
         {
@@ -40,7 +46,7 @@ internal class BlockReader(Block block)
         }
     }
 
-    public int MetaDataSise
+    public int MetaDataSize
     {
         get
         {
@@ -50,11 +56,104 @@ internal class BlockReader(Block block)
 
     #endregion Properties
 
+    #region Constructors
+
+    private BlockReader(Block block)
+    {
+        _block = block;
+    }
+
+    #endregion Constructors
+
     #region Methods
 
-    public bool TryToReadF32(out float value)
+    public static BlockReader Parse(BinaryReader reader)
     {
-        if (DataSise < 4)
+        var block = new Block();
+
+        block.Type = (BlockType)reader.ReadUInt32();
+
+        var dataLen = (int)reader.ReadUInt32();
+        var metadataLen = (int)reader.ReadUInt32();
+
+        block.Data = [.. reader.ReadBytes(dataLen)];
+        
+        var dataAlignLen = 4 - (dataLen % 4);
+        if (dataAlignLen == 4) dataAlignLen = 0;
+        block.DataAligning = [.. reader.ReadBytes(dataAlignLen)];
+        
+        block.MetaData = [.. reader.ReadBytes(metadataLen)];
+
+        var metadataAlignLen = 4 - (metadataLen % 4);
+        if (metadataAlignLen == 4) metadataAlignLen = 0;
+        block.MetaDataAligning = [.. reader.ReadBytes(metadataAlignLen)];
+
+        return new(block);
+    }
+
+    public IEnumerable<U3dMetaItem> ReadMeta(Encoding encoding)
+    {
+        if (!TryReadMetaU32(out var count))
+            yield break;
+
+        for (int i = 0; i < count; i++)
+        {
+            var item = new U3dMetaItem();
+            
+            if (TryReadMetaU32(out var attributes)) item.Attributes = (U3dMetaItemAttributes)attributes;
+            if (TryReadMetaString(encoding, out var key)) item.Key = key;
+            
+            if (item.Attributes.HasFlag(U3dMetaItemAttributes.String))
+            {
+                if (TryReadMetaString(encoding, out var stringValue)) item.StringValue = stringValue;
+            }
+            else
+            {
+                if (!TryReadMetaU32(out var binarySize))
+                    continue;
+
+                for (int j = 0; j < binarySize; j++)
+                    if (TryReadMetaU8(out var binaryChunk)) item.BinaryValue.Add(binaryChunk);
+            }
+
+            yield return item;
+        }
+    }
+
+    public void ReadPadding()
+    {
+        for (int i = 0; i < _block.DataAligning.Count; i++)
+            TryReadU8(out _);
+
+        _block.DataAligning.Clear();
+    }
+
+    public void ReadMetaPadding()
+    {
+        for (int i = 0; i < _block.MetaDataAligning.Count; i++)
+            TryReadU8(out _);
+
+        _block.MetaDataAligning.Clear();
+    }
+
+    public BlockReader ReadBlock()
+    {
+        using var stream = new MemoryStream([.. _block.Data]);
+        using var reader = new BinaryReader(stream);
+        var block = Parse(reader);
+        _block.Data.RemoveRange(0, block.Block.FullSize);
+        return block;
+    }
+
+    public float[] ReadArray(int size) => Enumerable.Repeat(0, size).Select(x =>
+    {
+        TryReadF32(out var v);
+        return v;
+    }).ToArray();
+
+    public bool TryReadF32(out float value)
+    {
+        if (DataSize < 4)
         {
             value = 0;
             return false;
@@ -67,9 +166,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadF64(out double value)
+    public bool TryReadF64(out double value)
     {
-        if (DataSise < 8)
+        if (DataSize < 8)
         {
             value = 0;
             return false;
@@ -82,9 +181,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadI16(out short value)
+    public bool TryReadI16(out short value)
     {
-        if (DataSise < 2)
+        if (DataSize < 2)
         {
             value = 0;
             return false;
@@ -97,9 +196,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadI32(out int value)
+    public bool TryReadI32(out int value)
     {
-        if (DataSise < 4)
+        if (DataSize < 4)
         {
             value = 0;
             return false;
@@ -112,9 +211,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaF32(out float value)
+    public bool TryReadMetaF32(out float value)
     {
-        if (MetaDataSise < 4)
+        if (MetaDataSize < 4)
         {
             value = 0;
             return false;
@@ -127,9 +226,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaF64(out double value)
+    public bool TryReadMetaF64(out double value)
     {
-        if (MetaDataSise < 8)
+        if (MetaDataSize < 8)
         {
             value = 0;
             return false;
@@ -142,9 +241,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaI16(out short value)
+    public bool TryReadMetaI16(out short value)
     {
-        if (MetaDataSise < 2)
+        if (MetaDataSize < 2)
         {
             value = 0;
             return false;
@@ -157,9 +256,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaI32(out int value)
+    public bool TryReadMetaI32(out int value)
     {
-        if (MetaDataSise < 4)
+        if (MetaDataSize < 4)
         {
             value = 0;
             return false;
@@ -172,13 +271,13 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaString(Encoding encoding, out string value)
+    public bool TryReadMetaString(Encoding encoding, out string value)
     {
-        if (TryToReadMetaU16(out ushort length))
+        if (TryReadMetaU16(out ushort length))
         {
             if (length > 0)
             {
-                if (MetaDataSise >= length)
+                if (MetaDataSize >= length)
                 {
                     value = encoding.GetString([.. _block.MetaData.GetRange(0, length)]);
                     _block.MetaData.RemoveRange(0, length);
@@ -203,9 +302,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaU16(out ushort value)
+    public bool TryReadMetaU16(out ushort value)
     {
-        if (MetaDataSise < 2)
+        if (MetaDataSize < 2)
         {
             value = 0;
             return false;
@@ -218,9 +317,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaU32(out uint value)
+    public bool TryReadMetaU32(out uint value)
     {
-        if (MetaDataSise < 4)
+        if (MetaDataSize < 4)
         {
             value = 0;
             return false;
@@ -233,9 +332,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaU64(out ulong value)
+    public bool TryReadMetaU64(out ulong value)
     {
-        if (MetaDataSise < 8)
+        if (MetaDataSize < 8)
         {
             value = 0;
             return false;
@@ -248,7 +347,7 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadMetaU8(out byte value)
+    public bool TryReadMetaU8(out byte value)
     {
         if (IsMetaDataEmpty)
         {
@@ -263,13 +362,13 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadString(Encoding encoding, out string value)
+    public bool TryReadString(Encoding encoding, out string value)
     {
-        if (TryToReadU16(out ushort length))
+        if (TryReadU16(out ushort length))
         {
             if (length > 0)
             {
-                if (DataSise >= length)
+                if (DataSize >= length)
                 {
                     value = encoding.GetString([.. _block.Data.GetRange(0, length)]);
                     _block.Data.RemoveRange(0, length);
@@ -294,9 +393,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadU16(out ushort value)
+    public bool TryReadU16(out ushort value)
     {
-        if (DataSise < 2)
+        if (DataSize < 2)
         {
             value = 0;
             return false;
@@ -309,9 +408,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadU32(out uint value)
+    public bool TryReadU32(out uint value)
     {
-        if (DataSise < 4)
+        if (DataSize < 4)
         {
             value = 0;
             return false;
@@ -324,9 +423,9 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadU64(out ulong value)
+    public bool TryReadU64(out ulong value)
     {
-        if (DataSise < 8)
+        if (DataSize < 8)
         {
             value = 0;
             return false;
@@ -339,7 +438,7 @@ internal class BlockReader(Block block)
         }
     }
 
-    public bool TryToReadU8(out byte value)
+    public bool TryReadU8(out byte value)
     {
         if (IsDataEmpty)
         {

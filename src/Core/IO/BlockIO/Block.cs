@@ -66,6 +66,8 @@ internal class Block
 
     public BlockType Type { get; internal set; }
 
+    public int FullSize => Data.Count + DataAligning.Count + MetaData.Count + MetaDataAligning.Count + 12/*definitions of type + data length + metadata length*/;
+
     #endregion Properties
 
     #region Methods

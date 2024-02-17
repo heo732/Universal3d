@@ -17,6 +17,7 @@
             <Button Content="Save Sample" Command="{Binding SaveSampleCommand}"/>
             <Button Content="Wrap U3D to PDF" Command="{Binding WrapU3dToPdfCommand}"/>
             <Button Content="Extract U3D from PDF" Command="{Binding ExtractU3dFromPdfCommand}"/>
+            <Button Content="Resave U3D" Command="{Binding ResaveU3dCommand}"/>
         </StackPanel>
     </Grid>
 </mah:MetroWindow>

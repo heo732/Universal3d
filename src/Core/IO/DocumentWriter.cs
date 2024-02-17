@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Universal3d.Core.Enums;
 using Universal3d.Core.IO.BlockIO;
 using Universal3d.Core.Primitives;
 using Universal3d.Core.Primitives.MaterialPrimitives;
@@ -22,6 +23,7 @@ internal static class DocumentWriter
         WriteDeclarationsOfTextures(writer, doc);
         WriteContinuationsOfMeshes(writer, doc);
         WriteContinuationsOfTextures(writer, doc);
+        stream.Flush();
     }
 
     #endregion PublicMethods
@@ -101,9 +103,9 @@ internal static class DocumentWriter
         w.WriteU32(106); // character encoding: 106 = UTF-8
         //Meta data.
         w.WriteMetaU32(1); // Key/Value Pair Count
-        w.WriteMetaU32(0); // Key/Value Pair Attributes; 0x00000000 - indicates the Value is formatted as a String
-        w.WriteMetaString("Created by", doc.TextEncoding); // Key String
-        w.WriteMetaString("U3DSpace", doc.TextEncoding); // Value String
+        w.WriteMetaU32((uint)(U3dMetaItemAttributes.String | U3dMetaItemAttributes.DisplayKey | U3dMetaItemAttributes.DisplayValue)); // Key/Value Pair Attributes;
+        w.WriteMetaString("Generator", doc.TextEncoding); // Key String
+        w.WriteMetaString("This file created by Universal.3d library", doc.TextEncoding); // Value String
         return w.GetBlock(BlockType.Header);
     }
 

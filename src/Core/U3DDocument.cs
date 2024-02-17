@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Universal3d.Core.Extensions;
 using Universal3d.Core.IO;
 using Universal3d.Core.Primitives;
 using Universal3d.Core.Primitives.MaterialPrimitives;
@@ -11,28 +12,15 @@ using Universal3d.Core.Primitives.TexturePrimitives;
 namespace Universal3d.Core;
 public class U3dDocument
 {
-    #region Constructors
-
-    public U3dDocument()
-    {
-        Shaders = [];
-        Materials = [];
-        Meshes = [];
-        Nodes = [];
-        Textures = [];
-        TextEncoding = Encoding.UTF8;
-    }
-
-    #endregion Constructors
-
     #region Properties
 
-    public Dictionary<string, Material> Materials { get; internal set; }
-    public Dictionary<string, Mesh> Meshes { get; internal set; }
-    public Dictionary<string, Node> Nodes { get; internal set; }
-    public Dictionary<string, Shader> Shaders { get; internal set; }
-    public Dictionary<string, Texture> Textures { get; internal set; }
-    public Encoding TextEncoding { get; }
+    public Dictionary<string, Material> Materials { get; } = [];
+    public Dictionary<string, Mesh> Meshes { get; } = [];
+    public Dictionary<string, Node> Nodes { get; } = [];
+    public Dictionary<string, Shader> Shaders { get; } = [];
+    public Dictionary<string, Texture> Textures { get; } = [];
+    public Encoding TextEncoding => Header.CharacterEncoding.ToSystemEncoding();
+    public U3dHeader Header { get; } = new();
 
     #endregion Properties
 
@@ -128,8 +116,14 @@ public class U3dDocument
         Save(stream);
     }
 
+    /// <summary>
+    /// Supports U3D of 1st Edition and uncompressed values only.
+    /// </summary>
     public static U3dDocument Load(Stream stream, bool leaveOpen = true) => DocumentReader.Read(stream, leaveOpen);
 
+    /// <summary>
+    /// Supports U3D of 1st Edition and uncompressed values only.
+    /// </summary>
     public static U3dDocument Load(string filePath)
     {
         using var stream = new FileStream(filePath, FileMode.Open);

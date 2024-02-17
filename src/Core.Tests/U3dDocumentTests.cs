@@ -16,6 +16,24 @@ public class U3dDocumentTests
         doc.Save(stream, true);
 
         // Assert
-        Assert.Equal(66588, stream.Length);
+        Assert.Equal(66620, stream.Length);
+    }
+
+    [Fact]
+    public void Load_ShouldProperlyParse_TexturedRubiksCubeSample()
+    {
+        // Arrange
+        var doc = U3dSamples.TexturedRubiksCube;
+        using var streamOut = new MemoryStream();
+        doc.Save(streamOut, true);
+        streamOut.Position = 0;
+        using var streamIn = new MemoryStream();
+
+        // Act
+        doc = U3dDocument.Load(streamOut, true);
+        doc.Save(streamIn, true);
+
+        // Assert
+        Assert.Equal(streamOut.Length, streamIn.Length);
     }
 }
