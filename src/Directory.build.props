@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Authors>Andrii Buzhak</Authors>
     <Copyright>Copyright (c) 2024 Andrii Buzhak</Copyright>
-    <Version>0.5.0</Version>
+    <Version>0.6.1</Version>
     <FileVersion>$(Version)</FileVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <LangVersion>latest</LangVersion>
